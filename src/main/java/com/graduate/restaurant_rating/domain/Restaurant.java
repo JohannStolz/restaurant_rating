@@ -1,7 +1,5 @@
 package com.graduate.restaurant_rating.domain;
 
-import com.graduate.restaurant_rating.to.RestaurantMenu;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Objects;
@@ -14,7 +12,7 @@ import java.util.Objects;
 public class Restaurant extends AbstractBaseEntity {
     private String address;
     private String email;
-    private RestaurantMenu menu;
+    //private RestaurantMenu menu;
 
     public Restaurant() {
     }
@@ -25,15 +23,8 @@ public class Restaurant extends AbstractBaseEntity {
         this.email = email;
     }
 
-    public Restaurant(Integer id, String address, String email, RestaurantMenu menu) {
-        super(id);
-        this.address = address;
-        this.email = email;
-        this.menu = menu;
-    }
-
-    public Restaurant (Restaurant restaurant){
-      this(restaurant.id, restaurant.address, restaurant.email, restaurant.menu);// check if restaurant.menu == nulll
+    public Restaurant(Restaurant restaurant) {
+        this(restaurant.id, restaurant.address, restaurant.email);
     }
 
     public String getAddress() {
@@ -52,20 +43,19 @@ public class Restaurant extends AbstractBaseEntity {
         this.email = email;
     }
 
-    public RestaurantMenu getMenu() {
+    /*public RestaurantMenu getMenu() {
         return menu;
     }
 
     public void setMenu(RestaurantMenu menu) {
         this.menu = menu;
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Restaurant{" +
                 "address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", menu=" + menu +
                 ", id=" + id +
                 '}';
     }

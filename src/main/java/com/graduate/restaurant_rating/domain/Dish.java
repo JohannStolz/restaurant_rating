@@ -1,7 +1,7 @@
 package com.graduate.restaurant_rating.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -10,23 +10,32 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "dishes")
 public class Dish extends AbstractBaseEntity {
+    @Column(name = "description")
+    private String description;
+    @Column(name = "date")
+    @NotNull
     private LocalDate date = LocalDate.now();
+    @ManyToOne(targetEntity = Vote.class)
     private Vote votes;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
     private double price;
 
     public Dish() {
     }
 
-    public Dish(Integer id, LocalDate date, Vote votes, Restaurant restaurant, double price) {
+    public Dish(Integer id, String description, LocalDate date, Vote votes, Restaurant restaurant, double price) {
         super(id);
+        this.description = description;
         this.date = date;
         this.votes = votes;
         this.restaurant = restaurant;
         this.price = price;
     }
-    public Dish (Dish dish){
-        this(dish.id, dish.date, dish.votes, dish.restaurant, dish.price);
+
+    public Dish(Dish dish) {
+        this(dish.id, dish.description, dish.date, dish.votes, dish.restaurant, dish.price);
     }
 
     public LocalDate getDate() {
@@ -61,10 +70,19 @@ public class Dish extends AbstractBaseEntity {
         this.price = price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
-                "date=" + date +
+                "description='" + description + '\'' +
+                ", date=" + date +
                 ", votes=" + votes +
                 ", restaurant=" + restaurant +
                 ", price=" + price +

@@ -26,7 +26,8 @@ public class Vote extends AbstractBaseEntity {
         this.restaurantId = restaurantId;
         this.date = date;
     }
-    public Vote (Vote vote) {
+
+    public Vote(Vote vote) {
         this(vote.id, vote.dishId, vote.userId, vote.restaurantId, vote.date);
     }
 

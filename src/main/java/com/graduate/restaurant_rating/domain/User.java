@@ -1,9 +1,7 @@
 package com.graduate.restaurant_rating.domain;
 
 
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -16,7 +14,12 @@ import java.util.Set;
 public class User extends AbstractBaseEntity {
     private String name;
     private int age;
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_sex", joinColumns = @JoinColumn(name = "user_id"))
     private Sex sex;
     private String email;
     private String password;
@@ -27,7 +30,7 @@ public class User extends AbstractBaseEntity {
 
     public User(Integer id, String name, int age, Set<Role> roles, Sex sex, String email, String password, LocalDateTime registeredDate) {
         super(id);
-        this.name =name;
+        this.name = name;
         this.age = age;
         this.roles = roles;
         this.sex = sex;
