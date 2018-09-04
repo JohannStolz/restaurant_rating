@@ -9,9 +9,10 @@ import java.util.List;
  * Created by Johann Stolz 14.08.2018
  */
 public interface RestaurantService {
+
     Restaurant create(Restaurant restaurant);
 
-    Restaurant update(Restaurant restaurant);
+    Restaurant update(Restaurant restaurant, int restaurantId);
 
     void delete(int id);
 

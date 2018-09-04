@@ -13,7 +13,7 @@ public interface DishService {
 
     Dish create(Dish dish);
 
-    Dish update(Dish dish) throws NotFoundException;
+    Dish update(Dish dish, int dishId) throws NotFoundException;
 
     void delete(int id) throws NotFoundException;
 

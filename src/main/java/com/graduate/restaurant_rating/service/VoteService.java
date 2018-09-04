@@ -12,11 +12,11 @@ public interface VoteService {
 
     Vote create(Vote vote);
 
-    Vote update(Vote vote);
+    Vote update(Vote vote, int voteId);
 
     void delete(int id);
 
     List<Vote> getAll();
 
-    List<Vote> getPerDay(LocalDate localDate);
+    List<Vote> getForDay(LocalDate localDate);
 }
