@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractBaseEntity {
+    private String name;
     private String address;
     private String email;
     //private RestaurantMenu menu;
@@ -17,14 +18,14 @@ public class Restaurant extends AbstractBaseEntity {
     public Restaurant() {
     }
 
-    public Restaurant(Integer id, String address, String email) {
+    public Restaurant(Integer id, String name, String address, String email) {
         super(id);
         this.address = address;
         this.email = email;
     }
 
     public Restaurant(Restaurant restaurant) {
-        this(restaurant.id, restaurant.address, restaurant.email);
+        this(restaurant.id, restaurant.name, restaurant.address, restaurant.email);
     }
 
     public String getAddress() {
@@ -51,6 +52,14 @@ public class Restaurant extends AbstractBaseEntity {
         this.menu = menu;
     }*/
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -66,12 +75,13 @@ public class Restaurant extends AbstractBaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Restaurant that = (Restaurant) o;
-        return Objects.equals(getAddress(), that.getAddress()) &&
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAddress(), that.getAddress()) &&
                 Objects.equals(getEmail(), that.getEmail());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getAddress(), getEmail());
+        return Objects.hash(super.hashCode(), getName(), getAddress(), getEmail());
     }
 }
