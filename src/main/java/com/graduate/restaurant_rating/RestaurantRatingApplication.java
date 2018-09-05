@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RestaurantRatingApplication {
 
     public static void main(String[] args) {
-          SpringApplication.run(RestaurantRatingApplication.class, args);
+        SpringApplication.run(RestaurantRatingApplication.class, args);
     }
 }

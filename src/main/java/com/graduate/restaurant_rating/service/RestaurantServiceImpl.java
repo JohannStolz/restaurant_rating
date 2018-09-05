@@ -15,7 +15,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private ResturantRepo restaurantRepo;
 
-
     @Override
     public Restaurant create(Restaurant restaurant) {
         return restaurantRepo.save(restaurant);
@@ -46,6 +45,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant getTheBest(VoteWinner winner) {
+
         return winner.getRestaurant();
     }
 }
