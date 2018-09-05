@@ -1,7 +1,9 @@
 package com.graduate.restaurant_rating.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -11,48 +13,61 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "votes")
 public class Vote extends AbstractBaseEntity {
-    private int userId;
-    private int dishId;
-    private int restaurantId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dish_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Dish dish;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Restaurant restaurant;
+
     private LocalDate date = LocalDate.now();
 
     public Vote() {
     }
 
-    public Vote(Integer id, int userId, int dishId, int restaurantId, LocalDate date) {
-        super(id);
-        this.userId = userId;
-        this.dishId = dishId;
-        this.restaurantId = restaurantId;
+    public Vote(User user, Dish dish, Restaurant restaurant, LocalDate date) {
+        this.user = user;
+        this.dish = dish;
+        this.restaurant = restaurant;
         this.date = date;
     }
 
-    public Vote(Vote vote) {
-        this(vote.id, vote.dishId, vote.userId, vote.restaurantId, vote.date);
+    public Vote(Integer id, User user, Dish dish, Restaurant restaurant, LocalDate date) {
+        super(id);
+        this.user = user;
+        this.dish = dish;
+        this.restaurant = restaurant;
+        this.date = date;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getDishId() {
-        return dishId;
+    public Dish getDish() {
+        return dish;
     }
 
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public LocalDate getDate() {
@@ -66,9 +81,9 @@ public class Vote extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Vote{" +
-                "userId=" + userId +
-                ", dishId=" + dishId +
-                ", restaurantId=" + restaurantId +
+                "user=" + user +
+                ", dish=" + dish +
+                ", restaurant=" + restaurant +
                 ", date=" + date +
                 ", id=" + id +
                 '}';

@@ -16,8 +16,6 @@ public class Dish extends AbstractBaseEntity {
     private String description;
     @NotNull
     private LocalDate date = LocalDate.now();
-    @ManyToOne(targetEntity = Vote.class)
-    private Vote votes;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
@@ -26,17 +24,23 @@ public class Dish extends AbstractBaseEntity {
     public Dish() {
     }
 
-    public Dish(Integer id, String description, LocalDate date, Vote votes, Restaurant restaurant, double price) {
+    public Dish(String description, @NotNull LocalDate date, Restaurant restaurant, double price) {
+        this.description = description;
+        this.date = date;
+        this.restaurant = restaurant;
+        this.price = price;
+    }
+
+    public Dish(Integer id, String description, @NotNull LocalDate date, Restaurant restaurant, double price) {
         super(id);
         this.description = description;
         this.date = date;
-        this.votes = votes;
         this.restaurant = restaurant;
         this.price = price;
     }
 
     public Dish(Dish dish) {
-        this(dish.id, dish.description, dish.date, dish.votes, dish.restaurant, dish.price);
+        this(dish.id, dish.description, dish.date, dish.restaurant, dish.price);
     }
 
     public LocalDate getDate() {
@@ -45,14 +49,6 @@ public class Dish extends AbstractBaseEntity {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Vote getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Vote votes) {
-        this.votes = votes;
     }
 
     public Restaurant getRestaurant() {
@@ -84,11 +80,9 @@ public class Dish extends AbstractBaseEntity {
         return "Dish{" +
                 "description='" + description + '\'' +
                 ", date=" + date +
-                ", votes=" + votes +
                 ", restaurant=" + restaurant +
                 ", price=" + price +
                 ", id=" + id +
                 '}';
     }
 }
-
