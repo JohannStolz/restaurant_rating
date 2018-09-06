@@ -15,7 +15,7 @@ RESTART WITH 100000;
 INSERT INTO users (name, age, email, password, sex)
 VALUES ('admin', '23', 'admin@rating.com', 'adminpass', 'SEX_WHATEVER'), --100000
        ('user1', '18', 'user1@rating.com', 'user1pass', 'SEX_MALE'), --100001
-       ('user2', '125', 'user2@rating.com', 'user2pass', 'SEX_FEMALE'); --100002
+       ('user2', '40', 'user2@rating.com', 'user2pass', 'SEX_FEMALE'); --100002
 
 INSERT INTO user_roles (roles, user_id)
 VALUES ('ROLE_USER', 100000),

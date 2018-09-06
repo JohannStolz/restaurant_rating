@@ -1,10 +1,11 @@
 package com.graduate.restaurant_rating.domain;
 
 
+import org.springframework.util.CollectionUtils;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -23,24 +24,30 @@ public class User extends AbstractBaseEntity {
     private Sex sex;
     private String email;
     private String password;
-    private LocalDateTime registeredDate = LocalDateTime.now();
+    private boolean enabled = true;
+    private LocalDate registeredDate = LocalDate.now();
 
     public User() {
     }
 
-    public User(Integer id, String name, int age, Set<Role> roles, Sex sex, String email, String password, LocalDateTime registeredDate) {
+    public User(Integer id, String name, int age, Sex sex, String email, boolean enabled, String password, Collection<Role> roles) {
         super(id);
         this.name = name;
         this.age = age;
-        this.roles = roles;
         this.sex = sex;
         this.email = email;
+        this.enabled = enabled;
         this.password = password;
-        this.registeredDate = registeredDate;
+        this.registeredDate = LocalDate.now();
+        setRoles(roles);
     }
 
     public User(User user) {
-        this(user.id, user.name, user.age, user.roles, user.sex, user.email, user.password, user.registeredDate);
+        this(user.getId(), user.getName(), user.getAge(), user.getSex(), user.getEmail(), user.isEnabled(), user.password, user.getRoles());
+    }
+
+    public User(Integer id, String name, int age, Sex sex, String email, boolean enabled, String password, Role role, Role... roles) {
+        this(id, name, age, sex, email, enabled, password, EnumSet.of(role, roles));
     }
 
     public int getAge() {
@@ -83,11 +90,11 @@ public class User extends AbstractBaseEntity {
         this.password = password;
     }
 
-    public LocalDateTime getRegisteredDate() {
+    public LocalDate getRegisteredDate() {
         return registeredDate;
     }
 
-    public void setRegisteredDate(LocalDateTime registeredDate) {
+    public void setRegisteredDate(LocalDate registeredDate) {
         this.registeredDate = registeredDate;
     }
 
@@ -97,6 +104,18 @@ public class User extends AbstractBaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     @Override

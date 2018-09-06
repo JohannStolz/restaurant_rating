@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 @MappedSuperclass
 public class AbstractBaseEntity {
-    private static final int SEQ_START = 100000;
+    public static final int SEQ_START = 100000;
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", initialValue = SEQ_START, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
