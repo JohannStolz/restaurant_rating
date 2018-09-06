@@ -4,17 +4,15 @@ import com.graduate.restaurant_rating.domain.Role;
 import com.graduate.restaurant_rating.domain.User;
 
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
-import static com.graduate.restaurant_rating.domain.Sex.SEX_FEMALE;
-import static com.graduate.restaurant_rating.domain.Sex.SEX_MALE;
-import static com.graduate.restaurant_rating.domain.Sex.SEX_WHATEVER;
+import static com.graduate.restaurant_rating.domain.Sex.*;
 
 /**
  * Created by Johann Stolz 05.09.2018
  */
 public class UserData {
     public static final int ADMIN_ID = SEQ_START;
-    public static final int USER1_ID  = SEQ_START + 1;
-    public static final int USER2_ID  = SEQ_START + 2;
+    public static final int USER1_ID = SEQ_START + 1;
+    public static final int USER2_ID = SEQ_START + 2;
     public static final User ADMIN = new User(
             ADMIN_ID
             , "admin"
@@ -51,6 +49,4 @@ public class UserData {
             , true
             , "newUserpass"
             , Role.ROLE_USER);
-
-    
 }

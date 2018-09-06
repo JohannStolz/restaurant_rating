@@ -20,4 +20,6 @@ public interface DishRepo extends PagingAndSortingRepository<Dish, Integer> {
     List<Dish> findAll();
 
     List<Dish> findAllByDate(LocalDate date);
+
+    List<Dish> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
 }

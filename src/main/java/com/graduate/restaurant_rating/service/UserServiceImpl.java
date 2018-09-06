@@ -2,6 +2,8 @@ package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.User;
 import com.graduate.restaurant_rating.repos.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,8 +12,9 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId
 /**
  * Created by Johann Stolz 14.08.2018
  */
+@Service
 public class UserServiceImpl implements UserService {
-
+    @Autowired
     private UserRepo userRepo;
 
     @Override

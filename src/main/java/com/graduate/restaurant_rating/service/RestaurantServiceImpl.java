@@ -3,6 +3,8 @@ package com.graduate.restaurant_rating.service;
 import com.graduate.restaurant_rating.domain.Restaurant;
 import com.graduate.restaurant_rating.repos.ResturantRepo;
 import com.graduate.restaurant_rating.to.VoteWinner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,8 +13,9 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId
 /**
  * Created by Johann Stolz 14.08.2018
  */
+@Service
 public class RestaurantServiceImpl implements RestaurantService {
-
+    @Autowired
     private ResturantRepo restaurantRepo;
 
     @Override

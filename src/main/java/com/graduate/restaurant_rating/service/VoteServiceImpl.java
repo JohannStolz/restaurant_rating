@@ -2,6 +2,8 @@ package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.repos.VoteRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,8 +13,9 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId
 /**
  * Created by Johann Stolz 14.08.2018
  */
+@Service
 public class VoteServiceImpl implements VoteService {
-
+    @Autowired
     private VoteRepo voteRepo;
 
     @Override
