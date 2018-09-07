@@ -1,5 +1,7 @@
 package com.graduate.restaurant_rating.domain;
 
+import com.graduate.restaurant_rating.HasId;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,7 +9,7 @@ import java.util.Objects;
  * Created by Johann Stolz 14.08.2018
  */
 @MappedSuperclass
-public class AbstractBaseEntity {
+public class AbstractBaseEntity implements HasId {
     public static final int SEQ_START = 100000;
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", initialValue = SEQ_START, allocationSize = 1)

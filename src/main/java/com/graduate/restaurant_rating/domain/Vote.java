@@ -81,11 +81,11 @@ public class Vote extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Vote{" +
-                "user=" + user +
+                "id=" + id +
+                ", user=" + user +
                 ", dish=" + dish +
                 ", restaurant=" + restaurant +
                 ", date=" + date +
-                ", id=" + id +
                 '}';
     }
 }

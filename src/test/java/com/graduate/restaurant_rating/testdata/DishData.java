@@ -4,6 +4,8 @@ import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Restaurant;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
 
@@ -29,5 +31,8 @@ public class DishData {
             , LocalDate.now()
             , new Restaurant(MAXIM)
             , 10000.0);
+
+    public static List<Dish> getAllDishes() {
+        return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC);}
 }
                             

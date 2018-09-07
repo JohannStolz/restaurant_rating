@@ -75,6 +75,10 @@ public class Dish extends AbstractBaseEntity {
         this.description = description;
     }
 
+    public Integer getId(){
+        return super.getId();
+    }
+
     @Override
     public String toString() {
         return "Dish{" +

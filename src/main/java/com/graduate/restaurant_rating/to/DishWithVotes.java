@@ -1,28 +1,31 @@
 package com.graduate.restaurant_rating.to;
 
+import com.graduate.restaurant_rating.HasId;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Created by Johann Stolz 06.09.2018
  */
-public class DishWithVotes {
-
+public class DishWithVotes implements HasId {
+    protected Integer id;
     private String description;
     private LocalDate date;
     private int restaurantId;
     private double price;
-    private int voteId;
+    private long countOfVotes;
 
     public DishWithVotes() {
     }
 
-    public DishWithVotes(String description, LocalDate date, int restaurantId, double price, int voteId) {
+    public DishWithVotes(Integer id, String description, LocalDate date, int restaurantId, double price, long countOfVotes) {
+        this.id = id;
         this.description = description;
         this.date = date;
         this.restaurantId = restaurantId;
         this.price = price;
-        this.voteId = voteId;
+        this.countOfVotes = countOfVotes;
     }
 
     public String getDescription() {
@@ -57,12 +60,12 @@ public class DishWithVotes {
         this.price = price;
     }
 
-    public int getVoteId() {
-        return voteId;
+    public long getCountOfVotes() {
+        return countOfVotes;
     }
 
-    public void setVoteId(int voteId) {
-        this.voteId = voteId;
+    public void setCountOfVotes(long countOfVotes) {
+        this.countOfVotes = countOfVotes;
     }
 
     @Override
@@ -72,14 +75,14 @@ public class DishWithVotes {
         DishWithVotes that = (DishWithVotes) o;
         return getRestaurantId() == that.getRestaurantId() &&
                 Double.compare(that.getPrice(), getPrice()) == 0 &&
-                getVoteId() == that.getVoteId() &&
+                getCountOfVotes() == that.getCountOfVotes() &&
                 Objects.equals(getDescription(), that.getDescription()) &&
                 Objects.equals(getDate(), that.getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDescription(), getDate(), getRestaurantId(), getPrice(), getVoteId());
+        return Objects.hash(getDescription(), getDate(), getRestaurantId(), getPrice(), getCountOfVotes());
     }
 
     @Override
@@ -89,7 +92,22 @@ public class DishWithVotes {
                 ", date=" + date +
                 ", restaurantId=" + restaurantId +
                 ", price=" + price +
-                ", voteId=" + voteId +
+                ", countOfVotes=" + countOfVotes +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return id == null;
     }
 }

@@ -1,7 +1,9 @@
-package com.graduate.restaurant_rating.util;
+package com.graduate.restaurant_rating.utils;
 
 import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Vote;
+import com.graduate.restaurant_rating.testdata.DishData;
+import com.graduate.restaurant_rating.testdata.VoteData;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 
 import java.time.LocalDate;
@@ -16,9 +18,17 @@ import static java.util.stream.Collectors.toList;
 /**
  * Created by Johann Stolz 06.09.2018
  */
-public class DishUtil {
+public class DishTestUtils {
 
-    public static List<DishWithVotes> getdWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
+    public static void main(String[] args) {
+        List<Vote> votes = VoteData.getAllVotes();
+        List<Dish> dishes = DishData.getAllDishes();
+        votes.forEach(System.out::println);
+        List<DishWithVotes> votesList = findWithVotes(dishes, votes);
+        votesList.forEach(System.out::println);
+    }
+
+    public static List<DishWithVotes> findWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
         Map<Dish, Long> dishMap = new HashMap<>();
         votes.stream()
                 .collect(Collectors.groupingBy(
