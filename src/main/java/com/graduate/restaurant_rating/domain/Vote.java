@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -26,19 +27,19 @@ public class Vote extends AbstractBaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    private LocalDate date = LocalDate.now();
+    private LocalDateTime date = LocalDateTime.now();
 
     public Vote() {
     }
 
-    public Vote(User user, Dish dish, Restaurant restaurant, LocalDate date) {
+    public Vote(User user, Dish dish, Restaurant restaurant, LocalDateTime date) {
         this.user = user;
         this.dish = dish;
         this.restaurant = restaurant;
         this.date = date;
     }
 
-    public Vote(Integer id, User user, Dish dish, Restaurant restaurant, LocalDate date) {
+    public Vote(Integer id, User user, Dish dish, Restaurant restaurant, LocalDateTime date) {
         super(id);
         this.user = user;
         this.dish = dish;
@@ -70,11 +71,11 @@ public class Vote extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

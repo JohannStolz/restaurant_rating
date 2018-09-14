@@ -17,8 +17,12 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId
  */
 @Service
 public class DishServiceImpl implements DishService {
+    private final DishRepo dishRepo;
+
     @Autowired
-    private DishRepo dishRepo;
+    public DishServiceImpl(DishRepo dishRepo) {
+        this.dishRepo = dishRepo;
+    }
 
     @Override
     public Dish create(Dish dish) {
