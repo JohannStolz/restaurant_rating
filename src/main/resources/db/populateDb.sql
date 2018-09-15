@@ -10,13 +10,25 @@ DELETE
 FROM restaurants;
 
 ALTER SEQUENCE GLOBAL_SEQ
-RESTART WITH 100000;
+  RESTART WITH 100000;
 
 INSERT INTO users (name, age, email, password, sex)
-VALUES ('admin', '23', 'admin@rating.com', 'adminpass', 'SEX_WHATEVER'), --100000
-       ('user1', '18', 'user1@rating.com', 'user1pass', 'SEX_MALE'), --100001
-       ('user2', '40', 'user2@rating.com', 'user2pass', 'SEX_FEMALE'); --100002
-
+VALUES ('admin',
+        '23',
+        'admin@rating.com',
+        '$2a$10$Mu2KicDLBQI2yFSFYyBpEeQETvUw4KXbAMnBzMlwj0aEac8LrHZ4S',
+        'SEX_WHATEVER'), --100000
+       ('user1',
+        '18',
+        'user1@rating.com',
+        '$2a$10$cVf5XvpJeff6MrwClQxTtuzJ.G.mDf7pe/9.hGbZioTXwXou1ccvm',
+        'SEX_MALE'), --100001
+       ('user2',
+        '40',
+        'user2@rating.com',
+        '$2a$10$vz.RZszVreNhNDdvDkMJBuP6ALImsFyI26bh1aVABCgtJAbkYO8dG',
+        'SEX_FEMALE'); --100002
+/*admin password - adminpass, user1 password - user1pass, user2 password - user2pass */
 INSERT INTO user_roles (roles, user_id)
 VALUES ('ROLE_USER', 100000),
        ('ROLE_ADMIN', 100000),

@@ -2,9 +2,8 @@ package com.graduate.restaurant_rating.utils;
 
 import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Vote;
-import com.graduate.restaurant_rating.testdata.DishData;
-import com.graduate.restaurant_rating.testdata.VoteData;
 import com.graduate.restaurant_rating.to.DishWithVotes;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -21,11 +20,12 @@ import static java.util.stream.Collectors.toList;
 public class DishTestUtils {
 
     public static void main(String[] args) {
-        List<Vote> votes = VoteData.getAllVotes();
+       /* List<Vote> votes = VoteData.getAllVotes();
         List<Dish> dishes = DishData.getAllDishes();
         votes.forEach(System.out::println);
         List<DishWithVotes> votesList = findWithVotes(dishes, votes);
-        votesList.forEach(System.out::println);
+        votesList.forEach(System.out::println);*/
+        new DishTestUtils().encrytedPass();
     }
 
     public static List<DishWithVotes> findWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
@@ -47,5 +47,15 @@ public class DishTestUtils {
                 , dish.getRestaurant().getId()
                 , dish.getPrice()
                 , countOfVotes);
+    }
+
+    public void encrytedPass() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encrytedPassword = passwordEncoder.encode("adminpass");
+        System.out.println("Encoded password of adminpass=" + encrytedPassword);
+        encrytedPassword = passwordEncoder.encode("user1pass");
+        System.out.println("Encoded password of user1pass=" + encrytedPassword);
+        encrytedPassword = passwordEncoder.encode("user2pass");
+        System.out.println("Encoded password of user2pass=" + encrytedPassword);
     }
 }

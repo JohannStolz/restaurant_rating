@@ -15,15 +15,16 @@ CREATE SEQUENCE GLOBAL_SEQ
 CREATE TABLE users
 (
   id              INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name            VARCHAR(255)            NOT NULL,
-  email           VARCHAR(255)            NOT NULL,
-  age             INTEGER                 NOT NULL,
+  name            VARCHAR(255)       NOT NULL,
+  email           VARCHAR(255)       NOT NULL,
+  age             INTEGER            NOT NULL,
   registered_date DATE DEFAULT now() NOT NULL,
-  enabled         BOOLEAN DEFAULT TRUE,
+  enabled         BOOLEAN             DEFAULT TRUE,
   sex             VARCHAR(255),
-  password        VARCHAR(255)            NOT NULL
+  password        VARCHAR(255)       NOT NULL
 );
-CREATE UNIQUE INDEX users_unique_id_idx ON users (id);
+CREATE UNIQUE INDEX users_unique_id_idx
+  ON users (id);
 
 CREATE TABLE user_roles
 (
@@ -31,7 +32,7 @@ CREATE TABLE user_roles
   roles   VARCHAR(255),
   CONSTRAINT user_roles_idx UNIQUE (user_id, roles),
   FOREIGN KEY (user_id) REFERENCES USERS (id)
-    ON DELETE CASCADE
+  ON DELETE CASCADE
 );
 CREATE TABLE restaurants
 (
@@ -45,11 +46,11 @@ CREATE TABLE dishes
 (
   id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   date          DATE DEFAULT now()   NOT NULL,
-  description   VARCHAR(255)              NOT NULL,
-  price         FLOAT                       NOT NULL,
-  restaurant_id INTEGER                   NOT NULL,
+  description   VARCHAR(255)         NOT NULL,
+  price         FLOAT                NOT NULL,
+  restaurant_id INTEGER              NOT NULL,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
-    ON DELETE CASCADE
+  ON DELETE CASCADE
 );
 CREATE TABLE votes
 (
@@ -59,10 +60,10 @@ CREATE TABLE votes
   restaurant_id INTEGER                 NOT NULL,
   user_id       INTEGER                 NOT NULL,
   FOREIGN KEY (dish_id) REFERENCES DISHES (id)
-    ON DELETE CASCADE,
+  ON DELETE CASCADE,
   FOREIGN KEY (restaurant_id) REFERENCES RESTAURANTS (id)
-    ON DELETE CASCADE,
+  ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES USERS (id)
-    ON DELETE CASCADE
+  ON DELETE CASCADE
 );
 

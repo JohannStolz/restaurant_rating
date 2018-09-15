@@ -48,10 +48,18 @@ public class DishRestController {
         dishService.delete(id);
     }
 
-    @GetMapping
+    @GetMapping()
     public List<Dish> getAll() {
         logger.info("Returning all DishWithVotes");
-       // return dishService.getAll();
+        // return dishService.getAll();
+        //return dishService.getAllWithVotes();
+        return dishRepo.findAll();
+    }
+
+    @PostMapping()
+    public List<Dish> getAllPost() {
+        logger.info("getAllPost()");
+        // return dishService.getAll();
         //return dishService.getAllWithVotes();
         return dishRepo.findAll();
     }
@@ -63,7 +71,8 @@ public class DishRestController {
         dishService.update(dish, id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+
     public ResponseEntity<Dish> create(@RequestBody Dish dish) {
         logger.info("Creating new Dish");
         Dish created = dishService.create(dish);
@@ -73,7 +82,7 @@ public class DishRestController {
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
-    }
+    }*/
 
     @GetMapping(value = "/filter")
     public List<DishWithVotes> getBetween(
@@ -82,4 +91,5 @@ public class DishRestController {
         logger.info("getBetween dates({} - {})", startDate, endDate);
         return null;
     }
+
 }
