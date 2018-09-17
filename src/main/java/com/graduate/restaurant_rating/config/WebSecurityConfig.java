@@ -1,9 +1,12 @@
 package com.graduate.restaurant_rating.config;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.integration.support.json.Jackson2JsonObjectMapper;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
+;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -20,9 +25,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
 
+    private final AuthenticationFailure authenticationFailureHandler;
+
     @Autowired
-    public WebSecurityConfig(DataSource dataSource) {
+    public WebSecurityConfig(DataSource dataSource, AuthenticationFailure authenticationFailureHandler) {
         this.dataSource = dataSource;
+        this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
     @Override
@@ -36,17 +44,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .permitAll()
                 .successHandler(
-                        (request, response, authentication) -> response.setStatus(HttpStatus.NO_CONTENT.value())).successForwardUrl("/profile/dishes")
+                        (request, response, authentication) -> response
+                                .setStatus(HttpStatus.NO_CONTENT.value()))
+                .successForwardUrl("/profile/dishes")
                 .failureHandler(
-                        (request, response, authentication) -> response.setStatus(HttpStatus.UNAUTHORIZED.value())).failureForwardUrl("/error")
+                        (authenticationFailureHandler))
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(
                         (request, response, authentication) -> {
                             response.setStatus(HttpStatus.NO_CONTENT.value());
-                        })
-        ;
+                        });
+
 
     }
 
@@ -63,6 +73,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select name, password, enabled from users where name=?")
                 .authoritiesByUsernameQuery("select u.id, ur.roles from users u inner join user_roles ur on u.id = ur.user_id where u.name=?");
 
+    }
+
+    @Bean
+    public Jackson2JsonObjectMapper jackson2JsonObjectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+        return new Jackson2JsonObjectMapper(mapper);
     }
 
 }
