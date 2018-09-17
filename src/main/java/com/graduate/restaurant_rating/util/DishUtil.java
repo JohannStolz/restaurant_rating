@@ -18,13 +18,14 @@ import static java.util.stream.Collectors.toList;
  */
 public class DishUtil {
 
-    public static List<DishWithVotes> getdWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
+    public static List<DishWithVotes> getWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
         Map<Dish, Long> dishMap = new HashMap<>();
         votes.stream()
                 .collect(Collectors.groupingBy(
                         Vote::getDish, Collectors.counting()))
                 .forEach(dishMap::put);
         return dishes.stream()
+                .filter(dishMap::containsKey)
                 .map(dish -> createWithVotes(dish, dishMap.get(dish)))
                 .collect(toList());
     }

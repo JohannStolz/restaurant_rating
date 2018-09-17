@@ -2,6 +2,8 @@ package com.graduate.restaurant_rating.utils;
 
 import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Vote;
+import com.graduate.restaurant_rating.testdata.DishData;
+import com.graduate.restaurant_rating.testdata.VoteData;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -20,12 +22,14 @@ import static java.util.stream.Collectors.toList;
 public class DishTestUtils {
 
     public static void main(String[] args) {
-       /* List<Vote> votes = VoteData.getAllVotes();
+        List<Vote> votes = VoteData.getAllVotes();
         List<Dish> dishes = DishData.getAllDishes();
+        // votes.remove(ADMIN_VOTE);
         votes.forEach(System.out::println);
+        dishes.forEach(System.out::println);
         List<DishWithVotes> votesList = findWithVotes(dishes, votes);
-        votesList.forEach(System.out::println);*/
-        new DishTestUtils().encrytedPass();
+        votesList.forEach(System.out::println);
+        // new DishTestUtils().encrytedPass();
     }
 
     public static List<DishWithVotes> findWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
@@ -35,7 +39,9 @@ public class DishTestUtils {
                         Vote::getDish, Collectors.counting()))
                 .forEach(dishMap::put);
         return dishes.stream()
+                .filter(dishMap::containsKey)
                 .map(dish -> createWithVotes(dish, dishMap.get(dish)))
+                .peek(System.out::println)
                 .collect(toList());
     }
 

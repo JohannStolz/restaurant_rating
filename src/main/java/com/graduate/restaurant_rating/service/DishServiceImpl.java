@@ -1,8 +1,11 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Dish;
+import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.repos.DishRepo;
+import com.graduate.restaurant_rating.repos.VoteRepo;
 import com.graduate.restaurant_rating.to.DishWithVotes;
+import com.graduate.restaurant_rating.util.DishUtil;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +21,12 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId
 @Service
 public class DishServiceImpl implements DishService {
     private final DishRepo dishRepo;
+    private final VoteRepo voteRepo;
 
     @Autowired
-    public DishServiceImpl(DishRepo dishRepo) {
+    public DishServiceImpl(DishRepo dishRepo, VoteRepo voteRepo) {
         this.dishRepo = dishRepo;
+        this.voteRepo = voteRepo;
     }
 
     @Override
@@ -53,10 +58,8 @@ public class DishServiceImpl implements DishService {
     @Override
     public List<DishWithVotes> getAllWithVotes() {
         List<Dish> dishes = getAll();
-        for (Dish d : dishes) {
-
-        }
-        return null; // STUB!!!!!!
+        List<Vote> votes = voteRepo.findAll();
+        return DishUtil.getWithVotes(dishes, votes);
     }
 
     @Override

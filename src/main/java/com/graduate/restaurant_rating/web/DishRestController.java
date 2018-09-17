@@ -1,7 +1,6 @@
 package com.graduate.restaurant_rating.web;
 
 import com.graduate.restaurant_rating.domain.Dish;
-import com.graduate.restaurant_rating.repos.DishRepo;
 import com.graduate.restaurant_rating.service.DishService;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 import org.slf4j.Logger;
@@ -9,11 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,8 +23,6 @@ public class DishRestController {
     private static final Logger logger = LoggerFactory.getLogger(DishRestController.class);
     static final String REST_URL = "/profile/dishes";
     private final DishService dishService;
-    @Autowired
-    public DishRepo dishRepo;
 
     @Autowired
     public DishRestController(DishService dishService) {
@@ -51,17 +45,13 @@ public class DishRestController {
     @GetMapping()
     public List<Dish> getAll() {
         logger.info("Returning all DishWithVotes");
-        // return dishService.getAll();
-        //return dishService.getAllWithVotes();
-        return dishRepo.findAll();
+         return dishService.getAll();
     }
 
     @PostMapping()
-    public List<Dish> getAllPost() {
+    public List<DishWithVotes> getAllPost() {
         logger.info("getAllPost()");
-        // return dishService.getAll();
-        //return dishService.getAllWithVotes();
-        return dishRepo.findAll();
+        return dishService.getAllWithVotes();
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
