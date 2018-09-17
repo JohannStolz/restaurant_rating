@@ -24,6 +24,7 @@ public class ValidationUtil {
             throw new WrongIdException("id not equals");
         }
     }
+
     public static void checkDeleteSuccess(boolean delete, int id) {
         if (!delete) {
             throw new NotFoundException("Not found entity with id=" + id);
@@ -34,6 +35,7 @@ public class ValidationUtil {
         checkNotFound(object != null, msg);
         return object;
     }
+
     public static void checkNotFound(boolean found, String msg) {
         if (!found) {
             throw new NotFoundException("Not found entity with " + msg);

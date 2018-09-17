@@ -13,7 +13,6 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.DishData.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 
 public class DishServiceTest extends AbstractServiceTest {
@@ -59,9 +58,9 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAllWithVotes() {
-    List<DishWithVotes> actual = dishService.getAllWithVotes();
-    List<DishWithVotes> expected = DishTestUtils.getListWithVotes();
-    assertThat(actual).isEqualTo(expected);
+        List<DishWithVotes> actual = dishService.getAllWithVotes();
+        List<DishWithVotes> expected = DishTestUtils.getListWithVotes();
+        assertThat(actual).isEqualTo(expected);
 
     }
 

@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteRestController {
     private static final Logger logger = LoggerFactory.getLogger(VoteRestController.class);
-    static final String REST_URL = "/rest/admin/votes";
+    static final String REST_URL = "/profile/votes";
 }

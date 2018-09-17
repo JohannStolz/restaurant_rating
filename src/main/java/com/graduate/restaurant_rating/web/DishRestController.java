@@ -45,7 +45,7 @@ public class DishRestController {
     @GetMapping()
     public List<Dish> getAll() {
         logger.info("Returning all DishWithVotes");
-         return dishService.getAll();
+        return dishService.getAll();
     }
 
     @PostMapping()

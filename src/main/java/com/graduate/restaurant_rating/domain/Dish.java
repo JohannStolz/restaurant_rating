@@ -75,7 +75,7 @@ public class Dish extends AbstractBaseEntity {
         this.description = description;
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return super.getId();
     }
 

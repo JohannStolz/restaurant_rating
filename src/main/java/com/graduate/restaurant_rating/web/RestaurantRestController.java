@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
     private static final Logger logger = LoggerFactory.getLogger(RestaurantRestController.class);
-    static final String REST_URL = "/rest/profile/restaurants";
+    static final String REST_URL = "/profile/restaurants";
 }

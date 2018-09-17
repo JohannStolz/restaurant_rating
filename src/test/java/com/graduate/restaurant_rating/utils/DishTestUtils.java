@@ -22,8 +22,9 @@ import static java.util.stream.Collectors.toList;
 public class DishTestUtils {
     List<Vote> votes = VoteData.getAllVotes();
     List<Dish> dishes = DishData.getAllDishes();
+
     public static void main(String[] args) {
-       DishTestUtils dishTestUtils = new DishTestUtils();
+        DishTestUtils dishTestUtils = new DishTestUtils();
         // votes.forEach(System.out::println);
         // dishes.forEach(System.out::println);
         List<DishWithVotes> votesList = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
@@ -53,7 +54,7 @@ public class DishTestUtils {
                 , countOfVotes);
     }
 
-    public static List<DishWithVotes> getListWithVotes (){
+    public static List<DishWithVotes> getListWithVotes() {
         DishTestUtils dishTestUtils = new DishTestUtils();
         return findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
     }
