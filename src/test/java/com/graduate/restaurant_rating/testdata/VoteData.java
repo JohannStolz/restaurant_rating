@@ -20,6 +20,6 @@ public class VoteData {
     public static final Vote NEW_VOTE = new Vote(null, ADMIN, LE_BIG_MAC, MAXIM, LocalDateTime.now());
 
     public static List<Vote> getAllVotes() {
-        return Arrays.asList(ADMIN_VOTE, USER1_VOTE, USER2_VOTE, NEW_VOTE);
+        return Arrays.asList(ADMIN_VOTE, USER1_VOTE, USER2_VOTE);
     }
 }

@@ -21,7 +21,7 @@ public class DishData {
             , 1000.0);
     public static final Dish BELYASH_FOR_GENTS = new Dish(
             100007
-            , "Belyash"
+            , "BelyashVIP"
             , LocalDate.now()
             , new Restaurant(BELYASH)
             , 800.0);
@@ -32,7 +32,28 @@ public class DishData {
             , new Restaurant(MAXIM)
             , 10000.0);
 
+    public static Dish getCreated() {
+        return new Dish(
+                null
+                , "NewDish"
+                , LocalDate.now()
+                , new Restaurant(MAXIM)
+                , 20000.0);
+    }
+
+    public static Dish getUpdated() {
+        return new Dish(
+                CRUMB_POTATOSHKA.getId()
+                , "UpdatedDish"
+                , LocalDate.now()
+                , new Restaurant(MAXIM)
+                , 20000.0);
+    }
+
+
     public static List<Dish> getAllDishes() {
-        return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC);}
+        return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC);
+    }
+
 }
                             

@@ -9,15 +9,18 @@ import com.graduate.restaurant_rating.util.DishUtil;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
+import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * Created by Johann Stolz 14.08.2018
  */
+@Transactional
 @Service
 public class DishServiceImpl implements DishService {
     private final DishRepo dishRepo;
@@ -37,17 +40,18 @@ public class DishServiceImpl implements DishService {
     @Override
     public Dish update(Dish dish, int dishId) throws NotFoundException {
         checkForMatchId(dish, dishId);
-        return dishRepo.save(dish);
+        return checkNotFoundWithId(dishRepo.save(dish), dishId);
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
         dishRepo.deleteById(id);
+
     }
 
     @Override
     public Dish get(int id) throws NotFoundException {
-        return dishRepo.findById(id);
+        return checkNotFoundWithId(dishRepo.findById(id), id);
     }
 
     @Override

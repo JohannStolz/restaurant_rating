@@ -20,15 +20,13 @@ import static java.util.stream.Collectors.toList;
  * Created by Johann Stolz 06.09.2018
  */
 public class DishTestUtils {
-
+    List<Vote> votes = VoteData.getAllVotes();
+    List<Dish> dishes = DishData.getAllDishes();
     public static void main(String[] args) {
-        List<Vote> votes = VoteData.getAllVotes();
-        List<Dish> dishes = DishData.getAllDishes();
-        // votes.remove(ADMIN_VOTE);
-        votes.forEach(System.out::println);
-        dishes.forEach(System.out::println);
-        List<DishWithVotes> votesList = findWithVotes(dishes, votes);
-        votesList.forEach(System.out::println);
+       DishTestUtils dishTestUtils = new DishTestUtils();
+        // votes.forEach(System.out::println);
+        // dishes.forEach(System.out::println);
+        List<DishWithVotes> votesList = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
         // new DishTestUtils().encrytedPass();
     }
 
@@ -55,6 +53,11 @@ public class DishTestUtils {
                 , countOfVotes);
     }
 
+    public static List<DishWithVotes> getListWithVotes (){
+        DishTestUtils dishTestUtils = new DishTestUtils();
+        return findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
+    }
+
     public void encrytedPass() {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encrytedPassword = passwordEncoder.encode("adminpass");
@@ -64,4 +67,5 @@ public class DishTestUtils {
         encrytedPassword = passwordEncoder.encode("user2pass");
         System.out.println("Encoded password of user2pass=" + encrytedPassword);
     }
+
 }
