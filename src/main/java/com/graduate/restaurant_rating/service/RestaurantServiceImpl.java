@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
+import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -23,17 +24,20 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantServiceImpl(ResturantRepo restaurantRepo) {
         this.restaurantRepo = restaurantRepo;
     }
+
     @Transactional
     @Override
     public Restaurant create(Restaurant restaurant) {
         return restaurantRepo.save(restaurant);
     }
+
     @Transactional
     @Override
     public Restaurant update(Restaurant restaurant, int restaurantId) {
         checkForMatchId(restaurant, restaurantId);
-        return restaurantRepo.save(restaurant);
+        return checkNotFoundWithId(restaurantRepo.save(restaurant), restaurantId);
     }
+
     @Transactional
     @Override
     public void delete(int id) {
@@ -42,13 +46,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant get(int id) {
-
-        return restaurantRepo.findById(id);
+        return checkNotFoundWithId(restaurantRepo.findById(id), id);
     }
 
     @Override
     public List<Restaurant> getAll() {
-
         return restaurantRepo.findAll();
     }
 

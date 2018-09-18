@@ -20,6 +20,7 @@ public class Restaurant extends AbstractBaseEntity {
 
     public Restaurant(Integer id, String name, String address, String email) {
         super(id);
+        this.name = name;
         this.address = address;
         this.email = email;
     }
@@ -44,6 +45,8 @@ public class Restaurant extends AbstractBaseEntity {
         this.email = email;
     }
 
+
+
     /*public RestaurantMenu getMenu() {
         return menu;
     }
@@ -63,7 +66,8 @@ public class Restaurant extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Restaurant{" +
-                "address='" + address + '\'' +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", id=" + id +
                 '}';
