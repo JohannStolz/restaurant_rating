@@ -20,7 +20,7 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWi
 /**
  * Created by Johann Stolz 14.08.2018
  */
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class DishServiceImpl implements DishService {
     private final DishRepo dishRepo;
@@ -31,18 +31,18 @@ public class DishServiceImpl implements DishService {
         this.dishRepo = dishRepo;
         this.voteRepo = voteRepo;
     }
-
+    @Transactional
     @Override
     public Dish create(Dish dish) {
         return dishRepo.save(dish);
     }
-
+    @Transactional
     @Override
     public Dish update(Dish dish, int dishId) throws NotFoundException {
         checkForMatchId(dish, dishId);
         return checkNotFoundWithId(dishRepo.save(dish), dishId);
     }
-
+     @Transactional
     @Override
     public void delete(int id) throws NotFoundException {
         dishRepo.deleteById(id);
