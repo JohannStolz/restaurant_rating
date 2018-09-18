@@ -23,8 +23,7 @@ CREATE TABLE users
   sex             VARCHAR(255),
   password        VARCHAR(255)       NOT NULL
 );
-CREATE UNIQUE INDEX users_unique_id_idx
-  ON users (id);
+CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
 CREATE TABLE user_roles
 (

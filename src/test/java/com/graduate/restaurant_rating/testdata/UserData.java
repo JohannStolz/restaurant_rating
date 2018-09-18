@@ -3,6 +3,9 @@ package com.graduate.restaurant_rating.testdata;
 import com.graduate.restaurant_rating.domain.Role;
 import com.graduate.restaurant_rating.domain.User;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 import static com.graduate.restaurant_rating.domain.Sex.*;
 
@@ -40,13 +43,30 @@ public class UserData {
             , true
             , "user2pass"
             , Role.ROLE_USER);
-    public static final User NEW_USER = new User(
-            null
-            , "newUser"
-            , 66
-            , SEX_MALE
-            , "newUser@rating.com"
-            , true
-            , "newUserpass"
-            , Role.ROLE_USER);
+
+    public static User getCreated() {
+        return new User(
+                null
+                , "newUser"
+                , 66
+                , SEX_MALE
+                , "newUser@rating.com"
+                , true
+                , "newUserpass"
+                , Role.ROLE_USER);
+    }
+    public static User getUpdated(){
+       return new User(
+                USER1_ID
+                , "user1Updated"
+                , 18
+                , SEX_MALE
+                , "user1@rating.com"
+                , true
+                , "user1pass"
+                , Role.ROLE_USER);
+    }
+    public static List<User> getAllUsers() {
+        return Arrays.asList(ADMIN, USER1, USER2);
+    }
 }

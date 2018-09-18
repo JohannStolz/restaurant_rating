@@ -22,6 +22,7 @@ public class User extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_sex", joinColumns = @JoinColumn(name = "user_id"))
     private Sex sex;
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
     private boolean enabled = true;
@@ -116,6 +117,9 @@ public class User extends AbstractBaseEntity {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+    }
+    public void setId(int id){
+      super.setId(id);
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.graduate.restaurant_rating.HasId;
 import com.graduate.restaurant_rating.domain.AbstractBaseEntity;
 import com.graduate.restaurant_rating.util.exception.IllegalRequestDataException;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
-import com.graduate.restaurant_rating.util.exception.WrongIdException;
 
 import java.util.Objects;
 
@@ -68,7 +67,7 @@ public class ValidationUtil {
     public static void checkForMatchId(AbstractBaseEntity entity, int id) {
         Objects.requireNonNull(entity);
         if (entity.getId() == null || !entity.getId().equals(id)) {
-            throw new WrongIdException("Dish.id not equals id: " + id);
+            throw new NotFoundException("Not found entity with id=" + id);
         }
     }
 }

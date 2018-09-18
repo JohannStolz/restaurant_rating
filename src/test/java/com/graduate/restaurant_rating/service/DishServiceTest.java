@@ -4,7 +4,6 @@ import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.testdata.DishData;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
-import com.graduate.restaurant_rating.util.exception.WrongIdException;
 import com.graduate.restaurant_rating.utils.DishTestUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DishServiceTest extends AbstractServiceTest {
     @Autowired
     private DishService dishService;
-
+    private ArrayList<Dish> allDishes = new ArrayList<>(DishData.getAllDishes());
     private int CrPoId = CRUMB_POTATOSHKA.getId();
 
     @Test
     public void create() {
         Dish newDish = getCreated();
-        ArrayList<Dish> dishes = new ArrayList<>(DishData.getAllDishes());
         dishService.create(newDish);
-        dishes.add(newDish);
-        assertThat(dishService.getAll()).isEqualTo(dishes);
+        allDishes.add(newDish);
+        assertThat(dishService.getAll()).isEqualTo(allDishes);
     }
 
     @Test
@@ -43,7 +41,6 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void delete() {
-        ArrayList<Dish> allDishes = new ArrayList<>(DishData.getAllDishes());
         allDishes.remove(CRUMB_POTATOSHKA);
         dishService.delete(CrPoId);
         assertThat(allDishes).isEqualTo(dishService.getAll());
@@ -75,29 +72,24 @@ public class DishServiceTest extends AbstractServiceTest {
         LocalDate start = LocalDate.of(2018, 05, 30);
         LocalDate end = LocalDate.of(2018, 05, 31);
         List<Dish> actual = dishService.getAllByDate(start, end);
-        ArrayList<Dish> expected = new ArrayList<>(DishData.getAllDishes());
+        ArrayList<Dish> expected = allDishes;
         expected.remove(LE_BIG_MAC);
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void getNotFound() throws Exception {
-        thrown.expect(NotFoundException.class);
-        dishService.get(1);
+        int id = 1;
+        assertThrows(NotFoundException.class, () -> dishService.get(id));
+
     }
 
     @Test
     public void updateNotFound() {
         int id = 0;
         Dish updated = getCreated();
-        WrongIdException e = assertThrows(WrongIdException.class, () -> dishService.update(updated, id));
-        assertEquals(e.getMessage(), "Dish.id not equals id: " + id);
+        NotFoundException e = assertThrows(NotFoundException.class, () -> dishService.update(updated, id));
+        assertEquals(e.getMessage(), "Not found entity with id=" + id);
     }
 
-    @Test
-    public void updateWrongId() {
-        int id = 0;
-        WrongIdException e = assertThrows(WrongIdException.class, () -> dishService.update(BELYASH_FOR_GENTS, id));
-        assertEquals(e.getMessage(), "Dish.id not equals id: " + id);
-    }
 }

@@ -7,26 +7,30 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
 
 /**
  * Created by Johann Stolz 05.09.2018
  */
 public class DishData {
+    public static final int CP_ID = SEQ_START + 6;
+    public static final int BFG_ID = SEQ_START + 7;
+    public static final int LBM_ID = SEQ_START + 8;
     public static final Dish CRUMB_POTATOSHKA = new Dish(
-            100006
+            CP_ID
             , "CrumbPotatoshka"
             , LocalDate.now()
             , new Restaurant(CRUMB_POTATO)
             , 1000.0);
     public static final Dish BELYASH_FOR_GENTS = new Dish(
-            100007
+            BFG_ID
             , "BelyashVIP"
             , LocalDate.now()
             , new Restaurant(BELYASH)
             , 800.0);
     public static final Dish LE_BIG_MAC = new Dish(
-            100008
+            LBM_ID
             , "LeBigMac"
             , LocalDate.now()
             , new Restaurant(MAXIM)
@@ -43,7 +47,7 @@ public class DishData {
 
     public static Dish getUpdated() {
         return new Dish(
-                CRUMB_POTATOSHKA.getId()
+                CP_ID
                 , "UpdatedDish"
                 , LocalDate.now()
                 , new Restaurant(MAXIM)
