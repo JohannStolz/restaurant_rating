@@ -5,6 +5,7 @@ import com.graduate.restaurant_rating.testdata.RestaurantData;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,4 +73,11 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         assertEquals(e.getMessage(), "Not found entity with id=" + id);
     }
 
+    @Test
+    public void deleteNotFound(){
+        Restaurant deleted = getCreated();
+        deleted.setId(1);
+        EmptyResultDataAccessException e = assertThrows(EmptyResultDataAccessException.class, () -> service.delete(deleted.getId()));
+        assertEquals(e.getMessage(), "No "+ Restaurant.class+" entity with id " + deleted.getId()+ " exists!");
+    }
 }

@@ -7,6 +7,7 @@ import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import com.graduate.restaurant_rating.utils.DishTestUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -90,6 +91,13 @@ public class DishServiceTest extends AbstractServiceTest {
         Dish updated = getCreated();
         NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(updated, id));
         assertEquals(e.getMessage(), "Not found entity with id=" + id);
+    }
+    @Test
+    public void deleteNotFound(){
+        Dish deleted = getCreated();
+        deleted.setId(1);
+        EmptyResultDataAccessException e = assertThrows(EmptyResultDataAccessException.class, () -> service.delete(deleted.getId()));
+        assertEquals(e.getMessage(), "No "+ Dish.class+" entity with id " + deleted.getId()+ " exists!");
     }
 
 }
