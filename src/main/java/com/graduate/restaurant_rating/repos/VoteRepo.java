@@ -4,6 +4,7 @@ import com.graduate.restaurant_rating.domain.Vote;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,7 +16,9 @@ public interface VoteRepo extends PagingAndSortingRepository<Vote, Integer> {
 
     void deleteById(int id);
 
+    Vote findById(int id);
+
     List<Vote> findAll();
 
-    List<Vote> findAllByDate(LocalDate date);
+    List<Vote> findAllByDate(LocalDateTime date);
 }

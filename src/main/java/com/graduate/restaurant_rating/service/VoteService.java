@@ -3,6 +3,7 @@ package com.graduate.restaurant_rating.service;
 import com.graduate.restaurant_rating.domain.Vote;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,5 +19,7 @@ public interface VoteService {
 
     List<Vote> getAll();
 
-    List<Vote> getForDay(LocalDate localDate);
+    Vote get(int id);
+
+    List<Vote> getForDay(LocalDateTime localDate);
 }

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
+import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -34,7 +36,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote update(Vote vote, int voteId) {
         checkForMatchId(vote, voteId);
-        return voteRepo.save(vote);
+        return checkNotFoundWithId(voteRepo.save(vote), voteId);
     }
 
     @Transactional
@@ -49,7 +51,12 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public List<Vote> getForDay(LocalDate localDate) {
+    public Vote get(int id) {
+        return checkNotFoundWithId(voteRepo.findById(id), id);
+    }
+
+    @Override
+    public List<Vote> getForDay(LocalDateTime localDate) {
         return voteRepo.findAllByDate(localDate);
     }
 }
