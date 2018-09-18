@@ -21,33 +21,33 @@ public class UserServiceTest extends AbstractServiceTest {
 
     private ArrayList<User> allUsers = new ArrayList<>(UserData.getAllUsers());
     @Autowired
-    private UserService userService;
+    private UserService service;
 
     @Test
     public void create() {
         User newUser = getCreated();
-        userService.create(newUser);
+        service.create(newUser);
         allUsers.add(newUser);
-        assertThat(userService.getAll()).isEqualTo(allUsers);
+        assertThat(service.getAll()).isEqualTo(allUsers);
     }
 
     @Test
     public void update() {
         User updated = getUpdated();
-        userService.update(updated, USER1_ID);
-        assertThat(userService.get(USER1_ID)).isEqualTo(updated);
+        service.update(updated, USER1_ID);
+        assertThat(service.get(USER1_ID)).isEqualTo(updated);
     }
 
     @Test
     public void delete() {
         allUsers.remove(USER1);
-        userService.delete(USER1_ID);
-        assertThat(allUsers).isEqualTo(userService.getAll());
+        service.delete(USER1_ID);
+        assertThat(allUsers).isEqualTo(service.getAll());
     }
 
     @Test
     public void get() {
-        User actual = userService.get(USER1_ID);
+        User actual = service.get(USER1_ID);
         assertThat(actual).isEqualTo(USER1);
     }
 
@@ -61,30 +61,30 @@ public class UserServiceTest extends AbstractServiceTest {
     @Test
     public void duplicateMailCreate() throws Exception {
         assertThrows(DataAccessException.class, () ->
-                userService.create(new User(null, "Duplicate", 112, SEX_WHATEVER, "user1@rating.com", true, "pass", ROLE_USER)));
+                service.create(new User(null, "Duplicate", 112, SEX_WHATEVER, "user1@rating.com", true, "pass", ROLE_USER)));
     }
 
     @Test
     public void getNotFound() throws Exception {
         int id = 1;
         assertThrows(NotFoundException.class, () ->
-                userService.get(id));
+                service.get(id));
     }
 
     @Test
     public void updateNotFound() {
         int id = 0;
         User updated = getCreated();
-        NotFoundException e = assertThrows(NotFoundException.class, () -> userService.update(updated, id));
+        NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(updated, id));
         assertEquals(e.getMessage(), "Not found entity with id=" + id);
     }
 
     @Test
     public void enable() {
-        userService.enable(USER1_ID, false);
-        assertFalse(userService.get(USER1_ID).isEnabled());
-        userService.enable(USER1_ID, true);
-        assertTrue(userService.get(USER1_ID).isEnabled());
+        service.enable(USER1_ID, false);
+        assertFalse(service.get(USER1_ID).isEnabled());
+        service.enable(USER1_ID, true);
+        assertTrue(service.get(USER1_ID).isEnabled());
     }
 
 }
