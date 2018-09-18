@@ -23,17 +23,20 @@ public class VoteServiceImpl implements VoteService {
     public VoteServiceImpl(VoteRepo voteRepo) {
         this.voteRepo = voteRepo;
     }
+
     @Transactional
     @Override
     public Vote create(Vote vote) {
         return voteRepo.save(vote);
     }
+
     @Transactional
     @Override
     public Vote update(Vote vote, int voteId) {
         checkForMatchId(vote, voteId);
         return voteRepo.save(vote);
     }
+
     @Transactional
     @Override
     public void delete(int id) {
