@@ -54,8 +54,8 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll() {
-        List<User> actual = allUsers;
-        List<User> expected = UserData.getAllUsers();
+        List<User> actual = service.getAll();
+        List<User> expected = allUsers;
         assertThat(actual).isEqualTo(expected);
     }
 

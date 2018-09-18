@@ -56,7 +56,7 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() {
         List<Dish> actual = service.getAll();
-        List<Dish> expected = DishData.getAllDishes();
+        List<Dish> expected = allDishes;
         assertThat(actual).isEqualTo(expected);
     }
 

@@ -52,8 +52,8 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAll() {
-        List<Restaurant> actual = allRestaurants;
-        List<Restaurant> expected = RestaurantData.getAllRestaurants();
+        List<Restaurant> actual = service.getAll();
+        List<Restaurant> expected = allRestaurants;
         assertThat(actual).isEqualTo(expected);
     }
 
