@@ -31,18 +31,21 @@ public class DishServiceImpl implements DishService {
         this.dishRepo = dishRepo;
         this.voteRepo = voteRepo;
     }
+
     @Transactional
     @Override
     public Dish create(Dish dish) {
         return dishRepo.save(dish);
     }
+
     @Transactional
     @Override
     public Dish update(Dish dish, int dishId) throws NotFoundException {
         checkForMatchId(dish, dishId);
         return checkNotFoundWithId(dishRepo.save(dish), dishId);
     }
-     @Transactional
+
+    @Transactional
     @Override
     public void delete(int id) throws NotFoundException {
         dishRepo.deleteById(id);

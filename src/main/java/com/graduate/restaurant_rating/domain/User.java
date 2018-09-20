@@ -118,8 +118,13 @@ public class User extends AbstractBaseEntity {
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
-    public void setId(int id){
-      super.setId(id);
+
+    public void setId(int id) {
+        super.setId(id);
+    }
+
+    public Integer getId() {
+        return super.getId();
     }
 
     @Override
@@ -129,6 +134,7 @@ public class User extends AbstractBaseEntity {
         if (!super.equals(o)) return false;
         User user = (User) o;
         return getAge() == user.getAge() &&
+                isEnabled() == user.isEnabled() &&
                 Objects.equals(getName(), user.getName()) &&
                 Objects.equals(getRoles(), user.getRoles()) &&
                 getSex() == user.getSex() &&
@@ -138,7 +144,7 @@ public class User extends AbstractBaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getName(), getAge(), getRoles(), getSex(), getEmail(), getRegisteredDate());
+        return Objects.hash(super.hashCode(), getName(), getAge(), getRoles(), getSex(), getEmail(), isEnabled(), getRegisteredDate());
     }
 
     @Override
@@ -149,7 +155,6 @@ public class User extends AbstractBaseEntity {
                 ", roles=" + roles +
                 ", sex=" + sex +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", registeredDate=" + registeredDate +
                 ", id=" + id +
                 '}';

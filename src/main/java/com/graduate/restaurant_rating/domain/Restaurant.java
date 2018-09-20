@@ -45,7 +45,9 @@ public class Restaurant extends AbstractBaseEntity {
         this.email = email;
     }
 
-
+    public Integer getId() {
+        return super.getId();
+    }
 
     /*public RestaurantMenu getMenu() {
         return menu;

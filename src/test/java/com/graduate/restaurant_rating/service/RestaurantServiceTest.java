@@ -1,7 +1,6 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
-import com.graduate.restaurant_rating.testdata.RestaurantData;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +73,10 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void deleteNotFound(){
+    public void deleteNotFound() {
         Restaurant deleted = getCreated();
         deleted.setId(1);
         EmptyResultDataAccessException e = assertThrows(EmptyResultDataAccessException.class, () -> service.delete(deleted.getId()));
-        assertEquals(e.getMessage(), "No "+ Restaurant.class+" entity with id " + deleted.getId()+ " exists!");
+        assertEquals(e.getMessage(), "No " + Restaurant.class + " entity with id " + deleted.getId() + " exists!");
     }
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,11 +70,9 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void getAllByDate() {
-        LocalDate start = LocalDate.of(2018, 05, 30);
-        LocalDate end = LocalDate.of(2018, 05, 31);
-        List<Dish> actual = service.getAllByDate(start, end);
+        List<Dish> actual = service.getAllByDate(LocalDateTime.now().toLocalDate(), LocalDateTime.now().toLocalDate());
         ArrayList<Dish> expected = allDishes;
-        expected.remove(LE_BIG_MAC);
+        expected.remove(CRUMB_POTATOSHKA);
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -92,12 +90,13 @@ public class DishServiceTest extends AbstractServiceTest {
         NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(updated, id));
         assertEquals(e.getMessage(), "Not found entity with id=" + id);
     }
+
     @Test
-    public void deleteNotFound(){
+    public void deleteNotFound() {
         Dish deleted = getCreated();
         deleted.setId(1);
         EmptyResultDataAccessException e = assertThrows(EmptyResultDataAccessException.class, () -> service.delete(deleted.getId()));
-        assertEquals(e.getMessage(), "No "+ Dish.class+" entity with id " + deleted.getId()+ " exists!");
+        assertEquals(e.getMessage(), "No " + Dish.class + " entity with id " + deleted.getId() + " exists!");
     }
 
 }

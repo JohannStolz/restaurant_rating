@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -88,5 +89,22 @@ public class Dish extends AbstractBaseEntity {
                 ", price=" + price +
                 ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Dish dish = (Dish) o;
+        return Double.compare(dish.getPrice(), getPrice()) == 0 &&
+                Objects.equals(getDescription(), dish.getDescription()) &&
+                Objects.equals(getDate(), dish.getDate()) &&
+                Objects.equals(getRestaurant(), dish.getRestaurant());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getDescription(), getDate(), getRestaurant(), getPrice());
     }
 }

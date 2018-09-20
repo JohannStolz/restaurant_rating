@@ -39,7 +39,8 @@ public class RestaurantData {
                 , "Square"
                 , "Ruomka@gmail.com");
     }
-    public static Restaurant getUpdated(){
+
+    public static Restaurant getUpdated() {
         return new Restaurant(
                 MAXIM_ID
                 , "Ruomochnaya u Maxima"
@@ -48,7 +49,7 @@ public class RestaurantData {
 
     }
 
-    public static List<Restaurant> getAllRestaurants(){
+    public static List<Restaurant> getAllRestaurants() {
         return Arrays.asList(CRUMB_POTATO, BELYASH, MAXIM);
     }
 }

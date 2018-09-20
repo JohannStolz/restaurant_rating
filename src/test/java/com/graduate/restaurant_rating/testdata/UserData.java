@@ -2,6 +2,8 @@ package com.graduate.restaurant_rating.testdata;
 
 import com.graduate.restaurant_rating.domain.Role;
 import com.graduate.restaurant_rating.domain.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +15,7 @@ import static com.graduate.restaurant_rating.domain.Sex.*;
  * Created by Johann Stolz 05.09.2018
  */
 public class UserData {
+    private static PasswordEncoder encoder = new BCryptPasswordEncoder();
     public static final int ADMIN_ID = SEQ_START;
     public static final int USER1_ID = SEQ_START + 1;
     public static final int USER2_ID = SEQ_START + 2;
@@ -23,8 +26,8 @@ public class UserData {
             , SEX_WHATEVER
             , "admin@rating.com"
             , true
-            , "adminpass"
-            , Role.ROLE_ADMIN, Role.ROLE_USER);
+            , encoder.encode("adminpass")
+            , Role.ROLE_USER, Role.ROLE_ADMIN);
     public static final User USER1 = new User(
             USER1_ID
             , "user1"
@@ -32,7 +35,7 @@ public class UserData {
             , SEX_MALE
             , "user1@rating.com"
             , true
-            , "user1pass"
+            , encoder.encode("user1pass")
             , Role.ROLE_USER);
     public static final User USER2 = new User(
             USER2_ID
@@ -41,7 +44,7 @@ public class UserData {
             , SEX_FEMALE
             , "user2@rating.com"
             , true
-            , "user2pass"
+            , encoder.encode("user2pass")
             , Role.ROLE_USER);
 
     public static User getCreated() {
@@ -52,20 +55,22 @@ public class UserData {
                 , SEX_MALE
                 , "newUser@rating.com"
                 , true
-                , "newUserpass"
+                , encoder.encode("newUserpass")
                 , Role.ROLE_USER);
     }
-    public static User getUpdated(){
-       return new User(
+
+    public static User getUpdated() {
+        return new User(
                 USER1_ID
                 , "user1Updated"
                 , 18
                 , SEX_MALE
                 , "user1@rating.com"
                 , true
-                , "user1pass"
+                , encoder.encode("user1pass")
                 , Role.ROLE_USER);
     }
+
     public static List<User> getAllUsers() {
         return Arrays.asList(ADMIN, USER1, USER2);
     }

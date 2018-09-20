@@ -24,11 +24,12 @@ public class DishTestUtils {
     List<Dish> dishes = DishData.getAllDishes();
 
     public static void main(String[] args) {
-        DishTestUtils dishTestUtils = new DishTestUtils();
+        //  DishTestUtils dishTestUtils = new DishTestUtils();
         // votes.forEach(System.out::println);
         // dishes.forEach(System.out::println);
-        List<DishWithVotes> votesList = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
+        // List<DishWithVotes> votesList = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
         // new DishTestUtils().encrytedPass();
+
     }
 
     public static List<DishWithVotes> findWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
@@ -40,7 +41,7 @@ public class DishTestUtils {
         return dishes.stream()
                 .filter(dishMap::containsKey)
                 .map(dish -> createWithVotes(dish, dishMap.get(dish)))
-                .peek(System.out::println)
+                //.peek(System.out::println)
                 .collect(toList());
     }
 
@@ -68,5 +69,6 @@ public class DishTestUtils {
         encrytedPassword = passwordEncoder.encode("user2pass");
         System.out.println("Encoded password of user2pass=" + encrytedPassword);
     }
+
 
 }

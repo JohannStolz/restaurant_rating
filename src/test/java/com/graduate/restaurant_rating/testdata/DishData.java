@@ -20,7 +20,7 @@ public class DishData {
     public static final Dish CRUMB_POTATOSHKA = new Dish(
             CP_ID
             , "CrumbPotatoshka"
-            , LocalDate.now()
+            , LocalDate.now().minusDays(1)
             , new Restaurant(CRUMB_POTATO)
             , 1000.0);
     public static final Dish BELYASH_FOR_GENTS = new Dish(
@@ -40,7 +40,7 @@ public class DishData {
         return new Dish(
                 null
                 , "NewDish"
-                , LocalDate.now()
+                , LocalDate.now().minusDays(1)
                 , new Restaurant(MAXIM)
                 , 20000.0);
     }
@@ -49,7 +49,7 @@ public class DishData {
         return new Dish(
                 CP_ID
                 , "UpdatedDish"
-                , LocalDate.now()
+                , LocalDate.now().minusDays(1)
                 , new Restaurant(MAXIM)
                 , 20000.0);
     }
@@ -58,6 +58,7 @@ public class DishData {
     public static List<Dish> getAllDishes() {
         return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC);
     }
+
 
 }
                             

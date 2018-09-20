@@ -87,12 +87,13 @@ public class UserServiceTest extends AbstractServiceTest {
         service.enable(USER1_ID, true);
         assertTrue(service.get(USER1_ID).isEnabled());
     }
+
     @Test
-    public void deleteNotFound(){
+    public void deleteNotFound() {
         User deleted = getCreated();
         deleted.setId(1);
         EmptyResultDataAccessException e = assertThrows(EmptyResultDataAccessException.class, () -> service.delete(deleted.getId()));
-        assertEquals(e.getMessage(), "No "+ User.class+" entity with id " + deleted.getId()+ " exists!");
+        assertEquals(e.getMessage(), "No " + User.class + " entity with id " + deleted.getId() + " exists!");
     }
 
 }
