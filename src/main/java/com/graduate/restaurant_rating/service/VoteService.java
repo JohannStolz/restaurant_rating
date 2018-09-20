@@ -2,7 +2,6 @@ package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Vote;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

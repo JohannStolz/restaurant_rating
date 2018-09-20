@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
@@ -16,7 +16,7 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWi
 /**
  * Created by Johann Stolz 14.08.2018
  */
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class VoteServiceImpl implements VoteService {
     private final VoteRepo voteRepo;
@@ -55,8 +55,11 @@ public class VoteServiceImpl implements VoteService {
         return checkNotFoundWithId(voteRepo.findById(id), id);
     }
 
+
     @Override
     public List<Vote> getForDay(LocalDateTime localDate) {
-        return voteRepo.findAllByDate(localDate);
+        LocalDateTime startDate = localDate.truncatedTo(ChronoUnit.DAYS);
+        LocalDateTime endDate = startDate.plusHours(23).plusMinutes(59).plusSeconds(59).plusNanos(900000000);
+        return voteRepo.findAllByDateBetween(startDate, endDate);
     }
 }

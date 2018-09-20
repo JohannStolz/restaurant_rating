@@ -21,7 +21,7 @@ public class VoteData {
 
 
     public static final Vote ADMIN_VOTE = new Vote(ADMIN_VOTE_ID, ADMIN, CRUMB_POTATOSHKA, CRUMB_POTATO, LocalDateTime.now().minusDays(1));
-    public static final Vote USER1_VOTE = new Vote(USER1_VOTE_ID, USER1, BELYASH_FOR_GENTS, BELYASH, LocalDateTime.now().minusDays(1));
+    public static final Vote USER1_VOTE = new Vote(USER1_VOTE_ID, USER1, BELYASH_FOR_GENTS, BELYASH, LocalDateTime.now());
     public static final Vote USER2_VOTE = new Vote(USER2_VOTE_ID, USER2, LE_BIG_MAC, MAXIM, LocalDateTime.now());
 
     public static Vote getCreated() {
@@ -35,8 +35,9 @@ public class VoteData {
     public static List<Vote> getAllVotes() {
         return Arrays.asList(ADMIN_VOTE, USER1_VOTE, USER2_VOTE);
     }
-    public static List<Vote> getForDay(){
-        return Arrays.asList(ADMIN_VOTE, USER1_VOTE);
+
+    public static List<Vote> getForToday() {
+        return Arrays.asList(USER1_VOTE, USER2_VOTE);
     }
 
 }

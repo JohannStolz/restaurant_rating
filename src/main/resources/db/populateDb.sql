@@ -41,12 +41,12 @@ VALUES ('CrumbPotato', 'Bus station', 'CP@gmail.com'),   --100003
        ('Maxim', 'Paris', 'Maxim@gmail.com'); --100005
 
 INSERT INTO dishes (date, description, restaurant_id, price)
-VALUES ('31.05.2018', 'CrumbPotatoshka', 100003, 1000),   --100006
-       ('30.05.2018', 'BelyashVIP', 100004, 800), --100007
-       ('01.06.2018', 'LeBigMac', 100005, 10000); --100008
+VALUES (now() - interval '1 day', 'CrumbPotatoshka', 100003, 1000),   --100006
+       (now(), 'BelyashVIP', 100004, 800), --100007
+       (now(), 'LeBigMac', 100005, 10000); --100008
 
-INSERT INTO votes (restaurant_id, user_id, dish_id)
-VALUES (100003, 100000, 100006),--100009
-       (100004, 100001, 100007),--100010
-       (100005, 100002, 100008) --100011
+INSERT INTO votes (restaurant_id, user_id, dish_id, date)
+VALUES (100003, 100000, 100006, now() - interval '1 day'),--100009
+       (100004, 100001, 100007, now()),--100010
+       (100005, 100002, 100008, now()) --100011
 ;
