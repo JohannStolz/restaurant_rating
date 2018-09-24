@@ -47,6 +47,10 @@ public class User extends AbstractBaseEntity {
         this(user.getId(), user.getName(), user.getAge(), user.getSex(), user.getEmail(), user.isEnabled(), user.password, user.getRoles());
     }
 
+    public User(Integer id, String name, int age, Sex sex, String email, String password, Role role, Role... roles) {
+        this(id, name, age, sex, email, true, password, EnumSet.of(role, roles));
+    }
+
     public User(Integer id, String name, int age, Sex sex, String email, boolean enabled, String password, Role role, Role... roles) {
         this(id, name, age, sex, email, enabled, password, EnumSet.of(role, roles));
     }
