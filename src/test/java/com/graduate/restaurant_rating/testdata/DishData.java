@@ -2,13 +2,16 @@ package com.graduate.restaurant_rating.testdata;
 
 import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Restaurant;
+import com.graduate.restaurant_rating.to.DishWithVotes;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
+import static com.graduate.restaurant_rating.utils.DishTestUtils.getListWithVotes;
 
 /**
  * Created by Johann Stolz 05.09.2018
@@ -59,6 +62,17 @@ public class DishData {
         return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC);
     }
 
+    public static List<DishWithVotes> getWithVotes() {
+        return getListWithVotes();
+    }
+
+    public static List<DishWithVotes> getWithVotesByToday() {
+        return getWithVotes().stream()
+                .filter(a -> !a.getDescription().equals(CRUMB_POTATOSHKA.getDescription()))
+                .collect(Collectors.toList());
+    }
 
 }
+
+
                             

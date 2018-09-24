@@ -4,7 +4,6 @@ import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,7 @@ public class DishUtil {
         return new DishWithVotes(
                 dish.getId()
                 , dish.getDescription()
-                , LocalDate.now()
+                , dish.getDate()
                 , dish.getRestaurant().getId()
                 , dish.getPrice()
                 , countOfVotes);

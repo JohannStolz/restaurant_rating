@@ -1,5 +1,6 @@
 package com.graduate.restaurant_rating.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.graduate.restaurant_rating.HasId;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class AbstractBaseEntity implements HasId {
         this.id = id;
     }
 
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }

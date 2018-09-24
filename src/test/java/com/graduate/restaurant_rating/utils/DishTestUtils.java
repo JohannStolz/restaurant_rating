@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.graduate.restaurant_rating.testdata.DishData.CRUMB_POTATOSHKA;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -57,7 +58,11 @@ public class DishTestUtils {
 
     public static List<DishWithVotes> getListWithVotes() {
         DishTestUtils dishTestUtils = new DishTestUtils();
-        return findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
+        List<DishWithVotes> result = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
+        result.stream()
+                .filter(a -> a.getDescription().equals(CRUMB_POTATOSHKA.getDescription()))
+                .forEach(a -> a.setDate(LocalDate.now().minusDays(1)));
+        return result;
     }
 
     public void encrytedPass() {
