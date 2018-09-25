@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.DishData.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.graduate.restaurant_rating.utils.TestUtil.assertMatch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -30,41 +30,41 @@ public class DishServiceTest extends AbstractServiceTest {
         Dish newDish = getCreated();
         service.create(newDish);
         allDishes.add(newDish);
-        assertThat(service.getAll()).isEqualTo(allDishes);
+        assertMatch(service.getAll(), allDishes);
     }
 
     @Test
     public void update() {
         Dish updated = getUpdated();
         service.update(updated, CrPoId);
-        assertThat(service.get(CrPoId)).isEqualTo(updated);
+        assertMatch(service.get(CrPoId), updated);
     }
 
     @Test
     public void delete() {
         allDishes.remove(CRUMB_POTATOSHKA);
         service.delete(CrPoId);
-        assertThat(allDishes).isEqualTo(service.getAll());
+        assertMatch(allDishes, service.getAll());
     }
 
     @Test
     public void get() {
         Dish actual = service.get(CrPoId);
-        assertThat(actual).isEqualTo(CRUMB_POTATOSHKA);
+        assertMatch(actual, CRUMB_POTATOSHKA);
     }
 
     @Test
     public void getAll() {
         List<Dish> actual = service.getAll();
         List<Dish> expected = allDishes;
-        assertThat(actual).isEqualTo(expected);
+        assertMatch(actual, expected);
     }
 
     @Test
     public void getAllWithVotes() {
         List<DishWithVotes> actual = service.getAllWithVotes();
         List<DishWithVotes> expected = DishTestUtils.getListWithVotes();
-        assertThat(actual).isEqualTo(expected);
+        assertMatch(actual, expected);
 
     }
 
@@ -73,14 +73,13 @@ public class DishServiceTest extends AbstractServiceTest {
         List<Dish> actual = service.getAllByDate(LocalDateTime.now().toLocalDate(), LocalDateTime.now().toLocalDate());
         ArrayList<Dish> expected = allDishes;
         expected.remove(CRUMB_POTATOSHKA);
-        assertThat(actual).isEqualTo(expected);
+        assertMatch(actual, expected);
     }
 
     @Test
     public void getNotFound() throws Exception {
         int id = 1;
         assertThrows(NotFoundException.class, () -> service.get(id));
-
     }
 
     @Test

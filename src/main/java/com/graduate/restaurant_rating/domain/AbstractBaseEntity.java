@@ -2,9 +2,9 @@ package com.graduate.restaurant_rating.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.graduate.restaurant_rating.HasId;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -37,16 +37,21 @@ public class AbstractBaseEntity implements HasId {
         this.id = id;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
         AbstractBaseEntity that = (AbstractBaseEntity) o;
-        return Objects.equals(getId(), that.getId());
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return id == null ? 0 : id;
     }
 }

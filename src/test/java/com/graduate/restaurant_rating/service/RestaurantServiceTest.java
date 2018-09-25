@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.graduate.restaurant_rating.utils.TestUtil.assertMatch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -26,34 +26,34 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant newRestaurant = getCreated();
         service.create(newRestaurant);
         allRestaurants.add(newRestaurant);
-        assertThat(service.getAll()).isEqualTo(allRestaurants);
+        assertMatch(service.getAll(), allRestaurants);
     }
 
     @Test
     public void update() {
         Restaurant updated = getUpdated();
         service.update(updated, MAXIM_ID);
-        assertThat(service.get(MAXIM_ID)).isEqualTo(updated);
+        assertMatch(service.get(MAXIM_ID), updated);
     }
 
     @Test
     public void delete() {
         allRestaurants.remove(BELYASH);
         service.delete(BELYASH_ID);
-        assertThat(allRestaurants).isEqualTo(service.getAll());
+        assertMatch(allRestaurants, service.getAll());
     }
 
     @Test
     public void get() {
         Restaurant actual = service.get(BELYASH_ID);
-        assertThat(actual).isEqualTo(BELYASH);
+        assertMatch(actual, BELYASH);
     }
 
     @Test
     public void getAll() {
         List<Restaurant> actual = service.getAll();
         List<Restaurant> expected = allRestaurants;
-        assertThat(actual).isEqualTo(expected);
+        assertMatch(actual, expected);
     }
 
 

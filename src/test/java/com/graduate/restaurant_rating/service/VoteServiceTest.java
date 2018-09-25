@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.VoteData.*;
+import static com.graduate.restaurant_rating.utils.TestUtil.assertMatch;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,14 +49,14 @@ public class VoteServiceTest extends AbstractServiceTest {
         List<Vote> actual = service.getAll();
         getVotesWithTruncatedLocaleDateTime(actual, all);
         System.out.println(actual.equals(all));
-        assertThat(actual).isEqualTo(all);
+        assertMatch(actual, all);
     }
 
     @Test
     public void get() {
         Vote actual = service.get(USER2_VOTE_ID);
         getVoteWithTruncatedLocaleDateTime(actual, USER2_VOTE);
-        assertThat(actual).isEqualTo(USER2_VOTE);
+        assertMatch(actual, USER2_VOTE);
     }
 
     @Test
@@ -63,7 +64,7 @@ public class VoteServiceTest extends AbstractServiceTest {
         List<Vote> actual = service.getAll();
         List<Vote> expected = all;
         getVotesWithTruncatedLocaleDateTime(actual, expected);
-        assertThat(actual).isEqualTo(expected);
+        assertMatch(actual, expected);
     }
 
 
@@ -97,7 +98,7 @@ public class VoteServiceTest extends AbstractServiceTest {
         byDay.remove(ADMIN_VOTE);
         ArrayList<Vote> expected = new ArrayList<>(VoteData.getForToday());
         getVotesWithTruncatedLocaleDateTime(byDay, expected);
-        assertThat(byDay).isEqualTo(expected);
+        assertMatch(byDay, expected);
 
     }
 

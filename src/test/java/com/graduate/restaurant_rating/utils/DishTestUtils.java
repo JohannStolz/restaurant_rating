@@ -21,8 +21,8 @@ import static java.util.stream.Collectors.toList;
  * Created by Johann Stolz 06.09.2018
  */
 public class DishTestUtils {
-    List<Vote> votes = VoteData.getAllVotes();
-    List<Dish> dishes = DishData.getAllDishes();
+    private List<Vote> votes = VoteData.getAllVotes();
+    private List<Dish> dishes = DishData.getAllDishes();
 
     public static void main(String[] args) {
         //  DishTestUtils dishTestUtils = new DishTestUtils();

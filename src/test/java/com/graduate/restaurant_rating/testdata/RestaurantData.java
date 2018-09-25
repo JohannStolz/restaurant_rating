@@ -52,4 +52,5 @@ public class RestaurantData {
     public static List<Restaurant> getAllRestaurants() {
         return Arrays.asList(CRUMB_POTATO, BELYASH, MAXIM);
     }
+
 }

@@ -5,7 +5,10 @@ import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -131,25 +134,6 @@ public class User extends AbstractBaseEntity {
         return super.getId();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        User user = (User) o;
-        return getAge() == user.getAge() &&
-                isEnabled() == user.isEnabled() &&
-                Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getRoles(), user.getRoles()) &&
-                getSex() == user.getSex() &&
-                Objects.equals(getEmail(), user.getEmail()) &&
-                Objects.equals(getRegisteredDate(), user.getRegisteredDate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getName(), getAge(), getRoles(), getSex(), getEmail(), isEnabled(), getRegisteredDate());
-    }
 
     @Override
     public String toString() {

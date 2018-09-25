@@ -18,7 +18,6 @@ import static com.graduate.restaurant_rating.testdata.DishData.*;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN;
 import static com.graduate.restaurant_rating.testdata.UserData.USER1;
 import static com.graduate.restaurant_rating.utils.TestUtil.*;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -48,7 +47,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
         all.remove(CRUMB_POTATOSHKA);
-        assertThat(service.getAll()).isEqualTo(all);
+        assertMatch(service.getAll(), all);
     }
 
     @Test
@@ -79,7 +78,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated))
                 .with(user("user1").password("user1pass"))) /// PAY ATTENTION
                 .andExpect(status().isNoContent());
-        assertThat(service.get(CRUMB_POTATOSHKA.getId())).isEqualTo(updated);
+        assertMatch(service.get(CRUMB_POTATOSHKA.getId()), updated);
 
     }
 
@@ -114,7 +113,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN)));
         Dish returned = readFromJson(action, Dish.class);
         created.setId(returned.getId());
-        assertThat(returned).isEqualTo(created);
+        assertMatch(returned, created);
     }
 
 }

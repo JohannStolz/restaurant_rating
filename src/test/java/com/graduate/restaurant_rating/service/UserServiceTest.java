@@ -14,7 +14,6 @@ import java.util.List;
 import static com.graduate.restaurant_rating.domain.Role.ROLE_USER;
 import static com.graduate.restaurant_rating.domain.Sex.SEX_WHATEVER;
 import static com.graduate.restaurant_rating.testdata.UserData.*;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -29,34 +28,34 @@ public class UserServiceTest extends AbstractServiceTest {
         User newUser = getCreated();
         service.create(newUser);
         allUsers.add(newUser);
-        assertThat(service.getAll()).isEqualTo(allUsers);
+        assertMatchUsers(service.getAll(), allUsers);
     }
 
     @Test
     public void update() {
         User updated = getUpdated();
         service.update(updated, USER1_ID);
-        assertThat(service.get(USER1_ID)).isEqualTo(updated);
+        assertMatchUser(service.get(USER1_ID), updated);
     }
 
     @Test
     public void delete() {
         allUsers.remove(USER1);
         service.delete(USER1_ID);
-        assertThat(allUsers).isEqualTo(service.getAll());
+        assertMatchUsers(allUsers, service.getAll());
     }
 
     @Test
     public void get() {
         User actual = service.get(USER1_ID);
-        assertThat(actual).isEqualTo(USER1);
+        assertMatchUser(actual, USER1);
     }
 
     @Test
     public void getAll() {
         List<User> actual = service.getAll();
         List<User> expected = allUsers;
-        assertThat(actual).isEqualTo(expected);
+        assertMatchUsers(actual, expected);
     }
 
     @Test

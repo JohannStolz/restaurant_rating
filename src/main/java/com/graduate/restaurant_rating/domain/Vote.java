@@ -5,7 +5,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * Created by Johann Stolz 14.08.2018
@@ -90,20 +89,4 @@ public class Vote extends AbstractBaseEntity {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Vote vote = (Vote) o;
-        return Objects.equals(getUser(), vote.getUser()) &&
-                Objects.equals(getDish(), vote.getDish()) &&
-                Objects.equals(getRestaurant(), vote.getRestaurant()) &&
-                Objects.equals(getDate(), vote.getDate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getUser(), getDish(), getRestaurant(), getDate());
-    }
 }

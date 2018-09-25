@@ -10,6 +10,7 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 import static com.graduate.restaurant_rating.domain.Sex.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Johann Stolz 05.09.2018
@@ -73,5 +74,13 @@ public class UserData {
 
     public static List<User> getAllUsers() {
         return Arrays.asList(ADMIN, USER1, USER2);
+    }
+
+    public static <T> void assertMatchUser(T actual, T expected) {
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "role", "password").isEqualTo(expected);
+    }
+
+    public static <T> void assertMatchUsers(Iterable<T> actual, Iterable<T> expected) {
+        assertThat(actual).usingElementComparatorIgnoringFields("role", "password").isEqualTo(expected);
     }
 }
