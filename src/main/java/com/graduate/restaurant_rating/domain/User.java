@@ -1,6 +1,8 @@
 package com.graduate.restaurant_rating.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -27,6 +29,7 @@ public class User extends AbstractBaseEntity {
     private Sex sex;
     @Column(nullable = false, unique = true)
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private boolean enabled = true;
     private LocalDate registeredDate = LocalDate.now();
@@ -94,6 +97,7 @@ public class User extends AbstractBaseEntity {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -122,6 +126,7 @@ public class User extends AbstractBaseEntity {
         this.enabled = enabled;
     }
 
+    @JsonSetter
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
