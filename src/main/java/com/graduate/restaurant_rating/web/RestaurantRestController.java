@@ -66,10 +66,9 @@ public class RestaurantRestController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
-        logger.info("Creating new Dish");
+        logger.info("Creating new Restaurant");
         checkNew(restaurant);
         Restaurant created = service.create(restaurant);
-
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
