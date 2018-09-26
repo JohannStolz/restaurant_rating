@@ -90,6 +90,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         created.setId(returned.getId());
         assertMatch(returned, created);
     }
+
     @Test
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + CRUMB_POTATO_ID))
@@ -97,6 +98,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("Not found entity with id=" + CRUMB_POTATO_ID))
                 .andDo(print());
     }
+
     @Test
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))

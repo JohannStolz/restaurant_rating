@@ -40,6 +40,7 @@ public class VoteData {
     public static List<Vote> getForToday() {
         return Arrays.asList(USER1_VOTE, USER2_VOTE);
     }
+
     @SafeVarargs
     public final static void getVotesWithTruncatedLocaleDateTime(List<Vote>... lists) {
         for (List<Vote> list : lists) {

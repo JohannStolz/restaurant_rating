@@ -18,9 +18,7 @@ import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RestaurantControllerTest extends AbstractControllerTest {
     private String REST_URL = RestaurantRestController.REST_URL + "/";
@@ -81,6 +79,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
         created.setId(returned.getId());
         assertMatch(returned, created);
     }
+
     @Test
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_ID))
@@ -88,6 +87,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID))
                 .andDo(print());
     }
+
     @Test
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))

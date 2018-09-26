@@ -17,9 +17,7 @@ import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class UserControllerTest extends AbstractControllerTest {
     private String REST_URL = UserRestController.REST_URL + "/";
@@ -80,6 +78,7 @@ public class UserControllerTest extends AbstractControllerTest {
         created.setId(returned.getId());
         assertMatchUser(returned, created);
     }
+
     @Test
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + CRUMB_POTATO_ID))
@@ -87,6 +86,7 @@ public class UserControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("Not found entity with id=" + CRUMB_POTATO_ID))
                 .andDo(print());
     }
+
     @Test
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))

@@ -9,23 +9,20 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.DishData.*;
-import static com.graduate.restaurant_rating.testdata.UserData.ADMIN;
-import static com.graduate.restaurant_rating.testdata.UserData.ADMIN_ID;
-import static com.graduate.restaurant_rating.testdata.UserData.USER1;
+import static com.graduate.restaurant_rating.testdata.DishData.getCreated;
+import static com.graduate.restaurant_rating.testdata.DishData.getUpdated;
+import static com.graduate.restaurant_rating.testdata.UserData.*;
 import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class DishRestControllerTest extends AbstractControllerTest {
     private String REST_URL = DishRestController.REST_URL + "/";
@@ -118,6 +115,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
         created.setId(returned.getId());
         assertMatch(returned, created);
     }
+
     @Test
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_ID))
@@ -125,6 +123,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID))
                 .andDo(print());
     }
+
     @Test
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
@@ -140,5 +139,5 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
                 .andDo(print());
     }
-  
+
 }
