@@ -29,12 +29,12 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL)
+        mockMvc.perform(get(REST_URL + MAXIM_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(RestaurantData.getAllRestaurants()));
+                .andExpect(contentJson(MAXIM));
     }
 
     @Test

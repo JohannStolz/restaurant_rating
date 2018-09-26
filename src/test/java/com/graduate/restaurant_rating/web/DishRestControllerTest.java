@@ -33,12 +33,12 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL)
+        mockMvc.perform(get(REST_URL + BELYASH_FOR_GENTS.getId())
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(DishData.getAllDishes()));
+                .andExpect(contentJson(BELYASH_FOR_GENTS));
     }
 
     @Test

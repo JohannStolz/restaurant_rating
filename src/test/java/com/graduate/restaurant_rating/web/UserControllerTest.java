@@ -28,12 +28,12 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL)
+        mockMvc.perform(get(REST_URL + USER2_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(UserData.getAllUsers()));
+                .andExpect(contentJson(USER2));
     }
 
     @Test
