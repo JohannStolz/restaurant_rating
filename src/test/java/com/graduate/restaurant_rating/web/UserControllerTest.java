@@ -28,8 +28,6 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        int i = 0;
-        
         mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())

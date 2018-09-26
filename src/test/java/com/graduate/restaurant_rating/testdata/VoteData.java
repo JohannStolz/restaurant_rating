@@ -3,6 +3,7 @@ package com.graduate.restaurant_rating.testdata;
 import com.graduate.restaurant_rating.domain.Vote;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,5 +40,17 @@ public class VoteData {
     public static List<Vote> getForToday() {
         return Arrays.asList(USER1_VOTE, USER2_VOTE);
     }
+    @SafeVarargs
+    public final static void getVotesWithTruncatedLocaleDateTime(List<Vote>... lists) {
+        for (List<Vote> list : lists) {
+            list.forEach(vote -> vote.setDate(vote.getDate().truncatedTo(ChronoUnit.HOURS)));
+        }
 
+    }
+
+    public static void getVoteWithTruncatedLocaleDateTime(Vote... votes) {
+        for (Vote vote : votes) {
+            vote.setDate(vote.getDate().truncatedTo(ChronoUnit.HOURS));
+        }
+    }
 }

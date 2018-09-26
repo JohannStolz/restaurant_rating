@@ -9,7 +9,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,21 +98,7 @@ public class VoteServiceTest extends AbstractServiceTest {
         ArrayList<Vote> expected = new ArrayList<>(VoteData.getForToday());
         getVotesWithTruncatedLocaleDateTime(byDay, expected);
         assertMatch(byDay, expected);
-
     }
 
-    @SafeVarargs
-    public final void getVotesWithTruncatedLocaleDateTime(List<Vote>... lists) {
-        for (List<Vote> list : lists) {
-            list.forEach(vote -> vote.setDate(vote.getDate().truncatedTo(ChronoUnit.HOURS)));
-        }
-
-    }
-
-    public void getVoteWithTruncatedLocaleDateTime(Vote... votes) {
-        for (Vote vote : votes) {
-            vote.setDate(vote.getDate().truncatedTo(ChronoUnit.HOURS));
-        }
-    }
 
 }
