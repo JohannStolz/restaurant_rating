@@ -1,6 +1,6 @@
 package com.graduate.restaurant_rating.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.graduate.restaurant_rating.HasId;
 import org.hibernate.Hibernate;
 
@@ -10,6 +10,7 @@ import javax.persistence.*;
  * Created by Johann Stolz 14.08.2018
  */
 @MappedSuperclass
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "new"})
 public class AbstractBaseEntity implements HasId {
     public static final int SEQ_START = 100000;
     @Id
@@ -24,7 +25,6 @@ public class AbstractBaseEntity implements HasId {
         this.id = id;
     }
 
-    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }
