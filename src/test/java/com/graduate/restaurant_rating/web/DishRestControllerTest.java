@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,12 +17,14 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.DishData.*;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN;
+import static com.graduate.restaurant_rating.testdata.UserData.ADMIN_ID;
 import static com.graduate.restaurant_rating.testdata.UserData.USER1;
 import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class DishRestControllerTest extends AbstractControllerTest {
@@ -115,5 +118,27 @@ public class DishRestControllerTest extends AbstractControllerTest {
         created.setId(returned.getId());
         assertMatch(returned, created);
     }
+    @Test
+    public void testGetInvalidId() throws Exception {
+        mockMvc.perform(get(REST_URL + ADMIN_ID))
+                .andExpect(jsonPath("$.errorCode").value(404))
+                .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID))
+                .andDo(print());
+    }
+    @Test
+    public void testGetInvalidArgument() throws Exception {
+        mockMvc.perform(get(REST_URL + "f"))
+                .andExpect(jsonPath("$.errorCode").value(400))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andDo(print());
+    }
 
+    @Test
+    public void testUpdateInvalidId() throws Exception {
+        mockMvc.perform(put(REST_URL + ADMIN_ID))
+                .andExpect(jsonPath("$.errorCode").value(400))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andDo(print());
+    }
+  
 }

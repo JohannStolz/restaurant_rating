@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.RestaurantData.CRUMB_POTATO;
+import static com.graduate.restaurant_rating.testdata.RestaurantData.CRUMB_POTATO_ID;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN_ID;
 import static com.graduate.restaurant_rating.testdata.VoteData.*;
@@ -88,5 +89,27 @@ public class VoteControllerTest extends AbstractControllerTest {
         Vote returned = readFromJson(action, Vote.class);
         created.setId(returned.getId());
         assertMatch(returned, created);
+    }
+    @Test
+    public void testGetInvalidId() throws Exception {
+        mockMvc.perform(get(REST_URL + CRUMB_POTATO_ID))
+                .andExpect(jsonPath("$.errorCode").value(404))
+                .andExpect(jsonPath("$.message").value("Not found entity with id=" + CRUMB_POTATO_ID))
+                .andDo(print());
+    }
+    @Test
+    public void testGetInvalidArgument() throws Exception {
+        mockMvc.perform(get(REST_URL + "f"))
+                .andExpect(jsonPath("$.errorCode").value(400))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andDo(print());
+    }
+
+    @Test
+    public void testUpdateInvalidId() throws Exception {
+        mockMvc.perform(put(REST_URL + CRUMB_POTATO_ID))
+                .andExpect(jsonPath("$.errorCode").value(400))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andDo(print());
     }
 }
