@@ -44,9 +44,10 @@ INSERT INTO dishes (date, description, restaurant_id, price)
 VALUES (now() - interval '1 day', 'CrumbPotatoshka', 100003, 1000),   --100006
        (now(), 'BelyashVIP', 100004, 800), --100007
        (now(), 'LeBigMac', 100005, 10000); --100008
-
+ /*https://postgrespro.ru/docs/postgrespro/9.5/functions-datetime*/
 INSERT INTO votes (restaurant_id, user_id, dish_id, date)
-VALUES (100003, 100000, 100006, now() - interval '1 day'),--100009
-       (100004, 100001, 100007, now()),--100010
-       (100005, 100002, 100008, now()) --100011
+VALUES (100003, 100000, 100006, current_date - interval '1 day' + interval '11 hour' + interval '1 second'),--100009
+       (100004, 100001, 100007, current_date + interval '11 hour' - interval '1 second'),--100010
+       (100005, 100002, 100008, current_date + interval '11 hour' + interval '1 second' ), --100011
+       (100004, 100002, 100007, current_date - interval '1 day' + interval '11 hour' + interval '1 second') --100012
 ;
