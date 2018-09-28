@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DishServiceTest extends AbstractServiceTest {
     @Autowired
     private DishService service;
-    private ArrayList<Dish> allDishes = new ArrayList<>(DishData.getAllDishes());
+    private List<Dish> allDishes = new ArrayList<>(DishData.getAllDishes());
     private int CrPoId = CRUMB_POTATOSHKA.getId();
 
     @Test
@@ -71,7 +71,7 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void getAllByDate() {
         List<Dish> actual = service.getAllByDate(LocalDateTime.now().toLocalDate(), LocalDateTime.now().toLocalDate());
-        ArrayList<Dish> expected = allDishes;
+        List<Dish> expected = allDishes;
         expected.remove(CRUMB_POTATOSHKA);
         assertMatch(actual, expected);
     }

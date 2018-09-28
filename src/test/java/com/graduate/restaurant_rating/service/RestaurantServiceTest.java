@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
 
-    private ArrayList<Restaurant> allRestaurants = new ArrayList<>(getAllRestaurants());
+    private List<Restaurant> allRestaurants = new ArrayList<>(getAllRestaurants());
 
     @Autowired
     private RestaurantService service;

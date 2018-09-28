@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest extends AbstractServiceTest {
 
-    private ArrayList<User> allUsers = new ArrayList<>(UserData.getAllUsers());
+    private List<User> allUsers = new ArrayList<>(UserData.getAllUsers());
     @Autowired
     private UserService service;
 
