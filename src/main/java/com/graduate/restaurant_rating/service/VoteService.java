@@ -1,5 +1,6 @@
 package com.graduate.restaurant_rating.service;
 
+import com.graduate.restaurant_rating.domain.User;
 import com.graduate.restaurant_rating.domain.Vote;
 
 import java.time.LocalDateTime;
@@ -21,4 +22,6 @@ public interface VoteService {
     Vote get(int id);
 
     List<Vote> getForDay(LocalDateTime localDate);
+
+    Vote getForDayByUser(LocalDateTime localDate, User user);
 }

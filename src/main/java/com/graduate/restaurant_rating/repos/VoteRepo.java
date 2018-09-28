@@ -1,5 +1,6 @@
 package com.graduate.restaurant_rating.repos;
 
+import com.graduate.restaurant_rating.domain.User;
 import com.graduate.restaurant_rating.domain.Vote;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -20,4 +21,6 @@ public interface VoteRepo extends PagingAndSortingRepository<Vote, Integer> {
     List<Vote> findAll();
 
     List<Vote> findAllByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+
+    Vote findAllByDateBetweenAndUser(LocalDateTime startDateTime, LocalDateTime endDateTime, User user);
 }
