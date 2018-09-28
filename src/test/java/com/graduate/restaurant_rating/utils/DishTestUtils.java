@@ -21,17 +21,8 @@ import static java.util.stream.Collectors.toList;
  * Created by Johann Stolz 06.09.2018
  */
 public class DishTestUtils {
-    private List<Vote> votes = VoteData.getAllVotes();
-    private List<Dish> dishes = DishData.getAllDishes();
-
-    public static void main(String[] args) {
-        //  DishTestUtils dishTestUtils = new DishTestUtils();
-        // votes.forEach(System.out::println);
-        // dishes.forEach(System.out::println);
-        // List<DishWithVotes> votesList = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
-        // new DishTestUtils().encrytedPass();
-
-    }
+    private static List<Vote> votes = VoteData.getAllVotes();
+    private static List<Dish> dishes = DishData.getAllDishes();
 
     public static List<DishWithVotes> findWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
         Map<Dish, Long> dishMap = new HashMap<>();
@@ -57,8 +48,7 @@ public class DishTestUtils {
     }
 
     public static List<DishWithVotes> getListWithVotes() {
-        DishTestUtils dishTestUtils = new DishTestUtils();
-        List<DishWithVotes> result = findWithVotes(dishTestUtils.dishes, dishTestUtils.votes);
+        List<DishWithVotes> result = findWithVotes(dishes, votes);
         result.stream()
                 .filter(a -> a.getDescription().equals(CRUMB_POTATOSHKA.getDescription()))
                 .forEach(a -> a.setDate(LocalDate.now().minusDays(1)));
