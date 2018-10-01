@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,6 +21,7 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkNew;
  * Created by Johann Stolz 04.09.2018
  */
 @RestController
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserRestController {
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
