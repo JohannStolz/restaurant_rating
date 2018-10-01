@@ -20,8 +20,9 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
         ErrorResponse error = new ErrorResponse();
         error.setErrorCode(HttpStatus.BAD_REQUEST.value());
-        error.setMessage("The request could not be understood by the server due to malformed syntax.");
+        error.setMessage("The request could not be understood by the server: " + ex.getLocalizedMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+
     }
 
 }
