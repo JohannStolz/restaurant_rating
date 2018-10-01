@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -43,42 +44,41 @@ public class DishRestController {
 
     @GetMapping("/{id}")
     public Dish get(@PathVariable("id") int id) {
-        logger.info("Returning Dish by id");
+        logger.info("Returning Dish by id: " + id);
         return service.get(id);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
-        logger.info("Deleting Dish by id");
+        logger.info("Deleting Dish by id :" + id);
         service.delete(id);
     }
 
     @GetMapping()
     public List<Dish> getAll() {
-        logger.info("Returning all DishWithVotes");
+        logger.info("Returning all Dishes");
         return service.getAll();
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping()
     public List<DishWithVotes> getAllPost() {
-        logger.info("getAllPost()");
+        logger.info("getAllWithVotes");
         return service.getAllWithVotes();
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@RequestBody Dish dish, @PathVariable("id") int id) {
         logger.info("Updating Dish by id");
         service.update(dish, id);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> create(@RequestBody Dish dish) {
         logger.info("Creating new Dish");
         checkNew(dish);
         Dish created = service.create(dish);
-
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
