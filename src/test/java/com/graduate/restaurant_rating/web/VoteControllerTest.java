@@ -61,7 +61,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(4)))
+                .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$.[0].id").value(ADMIN_VOTE_ID))
                 .andExpect(jsonPath("$.[1].id").value(USER1_VOTE_ID))
                 .andExpect(jsonPath("$.[0].user.name").value(ADMIN.getName()));

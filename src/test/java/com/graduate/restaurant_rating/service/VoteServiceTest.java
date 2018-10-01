@@ -10,9 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
+import static com.graduate.restaurant_rating.testdata.UserData.*;
 import static com.graduate.restaurant_rating.testdata.VoteData.*;
+import static com.graduate.restaurant_rating.testdata.VoteData.getCreated;
+import static com.graduate.restaurant_rating.testdata.VoteData.getUpdated;
 import static com.graduate.restaurant_rating.utils.TestUtil.assertMatch;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class VoteServiceTest extends AbstractServiceTest {
     @Autowired
     private VoteService service;
-    private ArrayList<Vote> all = new ArrayList<>(getAllVotes());
+    private List<Vote> all = new ArrayList<>(getAllVotes());
 
     @Test
     public void create() {
@@ -47,7 +52,6 @@ public class VoteServiceTest extends AbstractServiceTest {
         service.delete(ADMIN_VOTE_ID);
         List<Vote> actual = service.getAll();
         getVotesWithTruncatedLocaleDateTime(actual, all);
-        System.out.println(actual.equals(all));
         assertMatch(actual, all);
     }
 
@@ -91,14 +95,26 @@ public class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-
     public void getForDay() {
-        ArrayList<Vote> byDay = new ArrayList<>(service.getForDay(LocalDateTime.now()));
-        byDay.remove(ADMIN_VOTE);
-        ArrayList<Vote> expected = new ArrayList<>(VoteData.getForToday());
+        List<Vote> byDay = service.getForDay(LocalDateTime.now());
+        List<Vote> expected = VoteData.getForToday();
         getVotesWithTruncatedLocaleDateTime(byDay, expected);
         assertMatch(byDay, expected);
     }
 
-
+    @Test
+    public void getForDayByUser() {
+        List<Vote> actual;
+        Vote voteAdmin = service.getForDayByUser(LocalDateTime.now(), ADMIN);
+        Vote voteUser1 = service.getForDayByUser(LocalDateTime.now(), USER1);
+        Vote voteUser2 = service.getForDayByUser(LocalDateTime.now(), USER2);
+        List<Vote> expected = VoteData.getForToday();
+        actual = new ArrayList<>(Arrays.asList(voteAdmin, voteUser1, voteUser2));
+        actual.removeIf(Objects::isNull);
+        getVotesWithTruncatedLocaleDateTime(actual, expected);
+        assertMatch(actual, expected);
+    }
 }
+
+
+
