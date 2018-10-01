@@ -4,7 +4,7 @@ import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.testdata.DishData;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
-import com.graduate.restaurant_rating.utils.DishTestUtils;
+import com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -63,9 +63,8 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void getAllWithVotes() {
         List<DishWithVotes> actual = service.getAllWithVotes();
-        List<DishWithVotes> expected = DishTestUtils.getListWithVotes();
+        List<DishWithVotes> expected = DishAndRestaurantsTestUtils.getDishListWithVotes();
         assertMatch(actual, expected);
-
     }
 
     @Test

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
-import static com.graduate.restaurant_rating.utils.DishTestUtils.getListWithVotes;
+import static com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils.getDishListWithVotes;
 
 /**
  * Created by Johann Stolz 05.09.2018
@@ -63,7 +63,7 @@ public class DishData {
     }
 
     public static List<DishWithVotes> getWithVotes() {
-        return getListWithVotes();
+        return getDishListWithVotes();
     }
 
     public static List<DishWithVotes> getWithVotesByToday() {
