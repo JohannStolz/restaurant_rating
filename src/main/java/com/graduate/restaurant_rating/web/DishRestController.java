@@ -55,13 +55,13 @@ public class DishRestController {
         service.delete(id);
     }
 
-    @GetMapping()
+    @PostMapping()
     public List<Dish> getAll() {
         logger.info("Returning all Dishes");
         return service.getAll();
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping()
+    @GetMapping()
     public List<DishWithVotes> getAllPost() {
         logger.info("getAllWithVotes");
         return service.getAllWithVotes();
