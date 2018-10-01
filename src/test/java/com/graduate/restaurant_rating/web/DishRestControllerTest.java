@@ -53,7 +53,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL)
+        mockMvc.perform(post(REST_URL)
                 )
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -64,7 +64,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testGetAllPost() throws Exception {
-        mockMvc.perform(post(REST_URL))
+        mockMvc.perform(get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -135,7 +135,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""))
                 .andDo(print());
     }
 
@@ -144,13 +144,13 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testUpdateInvalidId() throws Exception {
         mockMvc.perform(put(REST_URL + ADMIN_ID))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"))
                 .andDo(print());
     }
     @Test
     @WithMockUser(roles = "USER")
     public void testUnAuth() throws Exception {
-        mockMvc.perform(post(REST_URL))
+        mockMvc.perform(get(REST_URL))
                 .andExpect(status().isBadRequest())
                 .andDo(print());
     }

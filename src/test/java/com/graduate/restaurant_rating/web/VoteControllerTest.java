@@ -103,7 +103,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""))
                 .andDo(print());
     }
 
@@ -111,7 +111,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     public void testUpdateInvalidId() throws Exception {
         mockMvc.perform(put(REST_URL + CRUMB_POTATO_ID))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server due to malformed syntax."))
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"))
                 .andDo(print());
     }
 }
