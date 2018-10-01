@@ -44,6 +44,13 @@ public class VoteData {
         return new Vote(USER1_VOTE_ID, USER1, BELYASH_FOR_GENTS, BELYASH, LocalDateTime.now().plusHours(5));
     }
 
+    public static Vote getUpdatedUser2() {
+        if (LocalDateTime.now().toLocalTime().isBefore(END_OF_VOTING)) {
+            return new Vote(USER2_SECOND_VOTE_ID, USER2, BELYASH_FOR_GENTS, BELYASH, LocalDateTime.now());
+        }
+        return new Vote(USER2_VOTE_ID, USER2, BELYASH_FOR_GENTS, BELYASH, LocalDateTime.now());
+    }
+
     public static List<Vote> getAllVotes() {
         return Arrays.asList(ADMIN_VOTE, USER1_VOTE, USER2_VOTE, USER2_SECOND_VOTE_BEFORE_ELEVEN, USER1_SECOND_VOTE);
     }
