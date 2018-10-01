@@ -1,6 +1,7 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
+import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 import com.graduate.restaurant_rating.to.VoteWinner;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface RestaurantService {
     List<Restaurant> getAll();
 
     Restaurant getTheBest(VoteWinner winner);
+
+    List<RestaurantWithVotes> getAllWithVotes();
 }

@@ -1,8 +1,12 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
+import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.repos.ResturantRepo;
+import com.graduate.restaurant_rating.repos.VoteRepo;
+import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 import com.graduate.restaurant_rating.to.VoteWinner;
+import com.graduate.restaurant_rating.util.RestaurantUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +23,12 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWi
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
     private final ResturantRepo restaurantRepo;
+    private final VoteRepo voteRepo;
 
     @Autowired
-    public RestaurantServiceImpl(ResturantRepo restaurantRepo) {
+    public RestaurantServiceImpl(ResturantRepo restaurantRepo, VoteRepo voteRepo) {
         this.restaurantRepo = restaurantRepo;
+        this.voteRepo = voteRepo;
     }
 
     @Transactional
@@ -58,5 +64,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant getTheBest(VoteWinner winner) {
 
         return winner.getRestaurant();
+    }
+
+    @Override
+    public List<RestaurantWithVotes> getAllWithVotes() {
+        List<Restaurant> restaurants = getAll();
+        List<Vote> votes = voteRepo.findAll();
+        return RestaurantUtil.getWithVotes(restaurants, votes);
     }
 }

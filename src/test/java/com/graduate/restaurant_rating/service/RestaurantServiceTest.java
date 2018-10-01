@@ -1,7 +1,9 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
+import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
+import com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -79,4 +81,12 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         EmptyResultDataAccessException e = assertThrows(EmptyResultDataAccessException.class, () -> service.delete(deleted.getId()));
         assertEquals(e.getMessage(), "No " + Restaurant.class + " entity with id " + deleted.getId() + " exists!");
     }
+
+    @Test
+    public void getAllWithVotes() {
+        List<RestaurantWithVotes> actual = service.getAllWithVotes();
+        List<RestaurantWithVotes> expected = DishAndRestaurantsTestUtils.getRestaurantListWithVotes();
+        assertMatch(actual, expected);
+    }
+
 }
