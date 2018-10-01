@@ -8,6 +8,7 @@ import com.graduate.restaurant_rating.web.json.JsonUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
@@ -31,10 +32,11 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Autowired
     private VoteService service;
 
+    @WithMockUser(roles = "ADMIN")
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_VOTE_ID)
-                .with(userHttpBasic(ADMIN)))
+                )
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -42,22 +44,22 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.user.id").value(ADMIN_ID))
                 .andExpect(jsonPath("$.restaurant.name").value(CRUMB_POTATO.getName()));
     }
-
+    @WithMockUser(roles = "ADMIN")
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + USER1_VOTE_ID)
-                .with(userHttpBasic(ADMIN)))
+                )
                 .andExpect(status().isNoContent());
         all.remove(USER1_VOTE);
         List<Vote> actual = service.getAll();
         getVotesWithTruncatedLocaleDateTime(actual, all);
         assertMatch(actual, all);
     }
-
+    @WithMockUser(roles = "ADMIN")
     @Test
     public void testGetAll() throws Exception {
         mockMvc.perform(get(REST_URL)
-                .with(userHttpBasic(ADMIN)))
+                )
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -66,7 +68,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.[1].id").value(USER1_VOTE_ID))
                 .andExpect(jsonPath("$.[0].user.name").value(ADMIN.getName()));
     }
-
+    @WithMockUser(roles = "USER")
     @Test
     public void testUpdate() throws Exception {
         Vote updated = getUpdated();
@@ -78,7 +80,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         assertMatch(service.get(USER1_VOTE_ID), updated);
 
     }
-
+    @WithMockUser(roles = "USER")
     @Test
     public void testCreate() throws Exception {
         Vote created = getCreated();
@@ -90,7 +92,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         created.setId(returned.getId());
         assertMatch(returned, created);
     }
-
+    @WithMockUser(roles = "ADMIN")
     @Test
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + CRUMB_POTATO_ID))
@@ -98,7 +100,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("Not found entity with id=" + CRUMB_POTATO_ID))
                 .andDo(print());
     }
-
+    @WithMockUser(roles = "USER")
     @Test
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
@@ -106,7 +108,7 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""))
                 .andDo(print());
     }
-
+    @WithMockUser(roles = "USER")
     @Test
     public void testUpdateInvalidId() throws Exception {
         mockMvc.perform(put(REST_URL + CRUMB_POTATO_ID))

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,20 +32,20 @@ public class VoteRestController {
     public VoteRestController(VoteService service) {
         this.service = service;
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public Vote get(@PathVariable("id") int id) {
         logger.info("Returning Vote by id");
         return service.get(id);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
         logger.info("Deleting Vote by id");
         service.delete(id);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping()
     public List<Vote> getAll() {
         logger.info("Returning all Votes");
