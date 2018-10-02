@@ -128,19 +128,20 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Test
     public void testUpdateReVote() throws Exception {
         Vote updated = getUpdatedUser2();
-        if(LocalDateTime.now().toLocalTime().isBefore(END_OF_VOTING)){
-        mockMvc.perform(put(REST_URL + USER2_SECOND_VOTE_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
-                .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"))
-                .andDo(print()); }
-                else {
-        mockMvc.perform(put(REST_URL + USER2_VOTE_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
-                .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"))
-                .andDo(print()); }
+        if (LocalDateTime.now().toLocalTime().isBefore(END_OF_VOTING)) {
+            mockMvc.perform(put(REST_URL + USER2_SECOND_VOTE_ID)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(JsonUtil.writeValue(updated)))
+                    .andExpect(jsonPath("$.errorCode").value(400))
+                    .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"))
+                    .andDo(print());
+        } else {
+            mockMvc.perform(put(REST_URL + USER2_VOTE_ID)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(JsonUtil.writeValue(updated)))
+                    .andExpect(jsonPath("$.errorCode").value(400))
+                    .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"))
+                    .andDo(print());
+        }
     }
 }

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.DishData.*;
-import static com.graduate.restaurant_rating.testdata.UserData.ADMIN;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN_ID;
 import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -54,7 +53,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @WithMockUser(roles = "USER")
     public void testGetAll() throws Exception {
         mockMvc.perform(post(REST_URL)
-                )
+        )
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -147,6 +146,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"))
                 .andDo(print());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void testUnAuth() throws Exception {

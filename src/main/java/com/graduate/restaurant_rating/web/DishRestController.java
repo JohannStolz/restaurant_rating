@@ -47,6 +47,7 @@ public class DishRestController {
         logger.info("Returning Dish by id: " + id);
         return service.get(id);
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -60,12 +61,14 @@ public class DishRestController {
         logger.info("Returning all Dishes");
         return service.getAll();
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping()
     public List<DishWithVotes> getAllPost() {
         logger.info("getAllWithVotes");
         return service.getAllWithVotes();
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -73,6 +76,7 @@ public class DishRestController {
         logger.info("Updating Dish by id");
         service.update(dish, id);
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> create(@RequestBody Dish dish) {

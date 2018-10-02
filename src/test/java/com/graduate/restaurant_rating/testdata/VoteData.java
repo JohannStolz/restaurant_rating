@@ -66,7 +66,7 @@ public class VoteData {
         return Collections.singletonList(USER2_VOTE);
     }
 
-   
+
     @SafeVarargs
     public static void getVotesWithTruncatedLocaleDateTime(List<Vote>... lists) {
         for (List<Vote> list : lists) {

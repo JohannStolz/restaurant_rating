@@ -32,12 +32,14 @@ public class VoteRestController {
     public VoteRestController(VoteService service) {
         this.service = service;
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public Vote get(@PathVariable("id") int id) {
         logger.info("Returning Vote by id");
         return service.get(id);
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -45,6 +47,7 @@ public class VoteRestController {
         logger.info("Deleting Vote by id");
         service.delete(id);
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping()
     public List<Vote> getAll() {
