@@ -19,7 +19,6 @@ import static com.graduate.restaurant_rating.testdata.DishData.*;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN_ID;
 import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class DishRestControllerTest extends AbstractControllerTest {
@@ -34,7 +33,6 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + BELYASH_FOR_GENTS.getId()))
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(BELYASH_FOR_GENTS));
     }
@@ -55,7 +53,6 @@ public class DishRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(post(REST_URL)
         )
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(DishData.getAllDishes()));
     }
@@ -65,7 +62,6 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testGetAllPost() throws Exception {
         mockMvc.perform(get(REST_URL))
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(DishData.getWithVotes()));
     }
@@ -92,7 +88,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
                 .param("endDate", String.valueOf(LocalDate.now()))
         )
                 .andExpect(status().isOk())
-                .andDo(print())
+
                 .andExpect(contentJson(expected));
 
     }
@@ -103,7 +99,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL + "filter?startDate=&endTime=")
         )
                 .andExpect(status().isOk())
-                .andDo(print())
+
                 .andExpect(contentJson(DishData.getWithVotes()));
     }
 
@@ -125,8 +121,8 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_ID))
                 .andExpect(jsonPath("$.errorCode").value(404))
-                .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID));
+
     }
 
     @Test
@@ -134,8 +130,8 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""));
+
     }
 
     @Test
@@ -143,16 +139,16 @@ public class DishRestControllerTest extends AbstractControllerTest {
     public void testUpdateInvalidId() throws Exception {
         mockMvc.perform(put(REST_URL + ADMIN_ID))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"));
+
     }
 
     @Test
     @WithMockUser(roles = "USER")
     public void testUnAuth() throws Exception {
         mockMvc.perform(get(REST_URL))
-                .andExpect(status().isBadRequest())
-                .andDo(print());
+                .andExpect(status().isBadRequest());
+
     }
 
 }

@@ -39,8 +39,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL + ADMIN_VOTE_ID)
         )
                 .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(ADMIN_VOTE_ID))
                 .andExpect(jsonPath("$.user.id").value(ADMIN_ID))
                 .andExpect(jsonPath("$.restaurant.name").value(CRUMB_POTATO.getName()));
@@ -64,8 +63,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL)
         )
                 .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$.[0].id").value(ADMIN_VOTE_ID))
                 .andExpect(jsonPath("$.[1].id").value(USER1_VOTE_ID))
@@ -102,8 +100,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + CRUMB_POTATO_ID))
                 .andExpect(jsonPath("$.errorCode").value(404))
-                .andExpect(jsonPath("$.message").value("Not found entity with id=" + CRUMB_POTATO_ID))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("Not found entity with id=" + CRUMB_POTATO_ID));
     }
 
     @WithMockUser(roles = "USER")
@@ -111,8 +108,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""));
     }
 
     @WithMockUser(roles = "USER")
@@ -120,8 +116,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     public void testUpdateInvalidId() throws Exception {
         mockMvc.perform(put(REST_URL + CRUMB_POTATO_ID))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"));
     }
 
     @WithMockUser(roles = "USER")
@@ -133,15 +128,13 @@ public class VoteControllerTest extends AbstractControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(JsonUtil.writeValue(updated)))
                     .andExpect(jsonPath("$.errorCode").value(400))
-                    .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"))
-                    .andDo(print());
+                    .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"));
         } else {
             mockMvc.perform(put(REST_URL + USER2_VOTE_ID)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(JsonUtil.writeValue(updated)))
                     .andExpect(jsonPath("$.errorCode").value(400))
-                    .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"))
-                    .andDo(print());
+                    .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"));
         }
     }
 }

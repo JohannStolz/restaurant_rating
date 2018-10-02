@@ -17,7 +17,6 @@ import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
 import static com.graduate.restaurant_rating.testdata.UserData.ADMIN_ID;
 import static com.graduate.restaurant_rating.utils.TestUtil.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RestaurantControllerTest extends AbstractControllerTest {
@@ -33,7 +32,6 @@ public class RestaurantControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL + MAXIM_ID)
         )
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(MAXIM));
     }
@@ -54,7 +52,6 @@ public class RestaurantControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL)
         )
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(RestaurantData.getAllRestaurants()));
     }
@@ -89,24 +86,24 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     public void testGetInvalidId() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_ID))
                 .andExpect(jsonPath("$.errorCode").value(404))
-                .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("Not found entity with id=" + ADMIN_ID));
+
     }
 
     @Test
     public void testGetInvalidArgument() throws Exception {
         mockMvc.perform(get(REST_URL + "f"))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: \"f\""));
+
     }
 
     @Test
     public void testUpdateInvalidId() throws Exception {
         mockMvc.perform(put(REST_URL + ADMIN_ID))
                 .andExpect(jsonPath("$.errorCode").value(400))
-                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"))
-                .andDo(print());
+                .andExpect(jsonPath("$.message").value("The request could not be understood by the server: Content type '' not supported"));
+
     }
 
 }
