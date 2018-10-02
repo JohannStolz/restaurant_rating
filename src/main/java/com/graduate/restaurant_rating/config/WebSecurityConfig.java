@@ -57,9 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(
                         (request, response, authentication) -> {
                             response.setStatus(HttpStatus.NO_CONTENT.value());
-                        });
-
-
+                        }).and()
+                .httpBasic();
     }
 
     @Bean
