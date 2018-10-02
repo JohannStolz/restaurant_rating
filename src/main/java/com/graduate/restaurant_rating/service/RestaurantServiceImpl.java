@@ -5,7 +5,6 @@ import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.repos.ResturantRepo;
 import com.graduate.restaurant_rating.repos.VoteRepo;
 import com.graduate.restaurant_rating.to.RestaurantWithVotes;
-import com.graduate.restaurant_rating.to.VoteWinner;
 import com.graduate.restaurant_rating.util.RestaurantUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,12 +57,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<Restaurant> getAll() {
         return restaurantRepo.findAll();
-    }
-
-    @Override
-    public Restaurant getTheBest(VoteWinner winner) {
-
-        return winner.getRestaurant();
     }
 
     @Override
