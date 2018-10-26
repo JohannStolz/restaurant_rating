@@ -19,14 +19,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.util.DishUtil.getWithVotes;
 import static com.graduate.restaurant_rating.util.Util.orElse;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNew;
 
-/**
- * Created by Johann Stolz 04.09.2018
- */
 
 @RestController
 @RequestMapping(value = DishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,15 +55,16 @@ public class DishRestController {
         service.delete(id);
     }
 
-    @PostMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping()
     public List<Dish> getAll() {
         logger.info("Returning all Dishes");
         return service.getAll();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping()
-    public List<DishWithVotes> getAllPost() {
+    @GetMapping("/withvotes")
+    public List<DishWithVotes> getAllWithVotes() {
         logger.info("getAllWithVotes");
         return service.getAllWithVotes();
     }
@@ -97,7 +97,9 @@ public class DishRestController {
         List<Dish> dishesDateFiltered = service.getAllByDate(
                 orElse(startDate, DateTimeUtil.MIN_DATE), orElse(endDate, DateTimeUtil.MAX_DATE));
         List<Vote> votes = voteService.getAll();
-        return getWithVotes(dishesDateFiltered, votes);
+        Map<Integer, LocalDate> map = dishesDateFiltered.stream()
+                .collect(Collectors.toMap(Dish::getId, Dish::getDate));
+        return getWithVotes(map, votes);
     }
 
 }

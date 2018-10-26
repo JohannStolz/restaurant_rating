@@ -1,6 +1,5 @@
 package com.graduate.restaurant_rating.util;
 
-import com.graduate.restaurant_rating.domain.Restaurant;
 import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 
@@ -13,11 +12,11 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 public class RestaurantUtil {
-    public static List<RestaurantWithVotes> getWithVotes(Collection<Restaurant> restaurants, Collection<Vote> votes) {
-        Map<Restaurant, Long> restaurantMap = new HashMap<>();
+    public static List<RestaurantWithVotes> getWithVotes(Collection<Integer> restaurants, Collection<Vote> votes) {
+        Map<Integer, Long> restaurantMap = new HashMap<>();
         votes.stream()
                 .collect(Collectors.groupingBy(
-                        Vote::getRestaurant, Collectors.counting()))
+                        Vote::getRestaurantId, Collectors.counting()))
                 .forEach(restaurantMap::put);
         return restaurants.stream()
                 .filter(restaurantMap::containsKey)
@@ -25,10 +24,9 @@ public class RestaurantUtil {
                 .collect(toList());
     }
 
-    public static RestaurantWithVotes createWithVotes(Restaurant restaurant, long countOfVotes) {
+    public static RestaurantWithVotes createWithVotes(Integer restaurant_id, long countOfVotes) {
         return new RestaurantWithVotes(
-                restaurant.getId()
-                , restaurant.getName()
+                restaurant_id
                 , countOfVotes);
     }
 }

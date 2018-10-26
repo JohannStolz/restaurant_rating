@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "classpath:db/populateDb.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = {"classpath:db/initDb.sql", "classpath:db/populateDb.sql"}, config = @SqlConfig(encoding = "UTF-8"))
 abstract public class AbstractServiceTest {
     private static final Logger log = LoggerFactory.getLogger("result");
 

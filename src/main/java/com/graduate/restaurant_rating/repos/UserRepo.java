@@ -14,7 +14,7 @@ public interface UserRepo extends PagingAndSortingRepository<User, Integer> {
 
     void deleteById(int id);
 
-    User findById(int id);
+    User findByName(String name);
 
     List<User> findAll();
 

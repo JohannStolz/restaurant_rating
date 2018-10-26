@@ -1,24 +1,20 @@
 package com.graduate.restaurant_rating.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
 @Entity
 @Table(name = "dishes")
 public class Dish extends AbstractBaseEntity {
+    @Column(nullable = false, unique = true)
     private String description;
     @NotNull
     private LocalDate date = LocalDate.now();
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
     private double price;
 
     public Dish() {

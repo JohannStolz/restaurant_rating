@@ -13,28 +13,31 @@ import com.graduate.restaurant_rating.util.RestaurantUtil;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.testdata.DishData.CRUMB_POTATOSHKA;
 
-/**
- * Created by Johann Stolz 06.09.2018
- */
 public class DishAndRestaurantsTestUtils {
     private static List<Vote> votes = VoteData.getAllVotes();
     private static List<Dish> dishes = DishData.getAllDishes();
     private static List<Restaurant> restaurants = RestaurantData.getAllRestaurants();
+    private static List<Integer> restaurantsId = restaurants.stream().map(Restaurant::getId).collect(Collectors.toList());
 
 
     public static List<DishWithVotes> getDishListWithVotes() {
-        List<DishWithVotes> result = DishUtil.getWithVotes(dishes, votes);
+        Map<Integer, LocalDate> map = dishes.stream()
+                .collect(Collectors.toMap(Dish::getId, Dish::getDate));
+        List<DishWithVotes> result = DishUtil.getWithVotes(map, votes);
+        result.stream().forEach(a -> a.setDateTime(LocalDate.now()));
         result.stream()
-                .filter(a -> a.getDescription().equals(CRUMB_POTATOSHKA.getDescription()))
-                .forEach(a -> a.setDate(LocalDate.now().minusDays(1)));
+                .filter(a -> a.getId().equals(CRUMB_POTATOSHKA.getId()))
+                .forEach(a -> a.setDateTime(LocalDate.now().minusDays(1)));
         return result;
     }
 
     public static List<RestaurantWithVotes> getRestaurantListWithVotes() {
-        return RestaurantUtil.getWithVotes(restaurants, votes);
+        return RestaurantUtil.getWithVotes(restaurantsId, votes);
     }
 
 }

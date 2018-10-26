@@ -18,9 +18,6 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNew;
 
-/**
- * Created by Johann Stolz 04.09.2018
- */
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController {
@@ -53,9 +50,9 @@ public class RestaurantRestController {
         return service.getAll();
     }
 
-    @PostMapping()
+    @GetMapping("/withvotes")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<RestaurantWithVotes> getAllPost() {
+    public List<RestaurantWithVotes> getAllWithVotes() {
         logger.info("Returning all RestaurantsWithVotes");
         return service.getAllWithVotes();
     }

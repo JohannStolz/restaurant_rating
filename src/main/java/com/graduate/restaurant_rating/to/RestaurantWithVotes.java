@@ -13,36 +13,21 @@ public class RestaurantWithVotes implements HasId {
     public RestaurantWithVotes() {
     }
 
-    public RestaurantWithVotes(Integer id, String name, long countOfVotes) {
+    public RestaurantWithVotes(Integer id, /*String name*/ long countOfVotes) {
         this.id = id;
         this.name = name;
         this.countOfVotes = countOfVotes;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
     public long getCountOfVotes() {
         return countOfVotes;
     }
 
-    public void setCountOfVotes(long countOfVotes) {
-        this.countOfVotes = countOfVotes;
-    }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     @Override
     public Integer getId() {
@@ -66,12 +51,11 @@ public class RestaurantWithVotes implements HasId {
         RestaurantWithVotes that = (RestaurantWithVotes) o;
         return getCountOfVotes() == that.getCountOfVotes() &&
                 Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getAddress(), that.getAddress());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getAddress(), getCountOfVotes());
+        return Objects.hash(getId(), getAddress(), getCountOfVotes());
     }
 }

@@ -5,9 +5,7 @@ import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 
 import java.util.List;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
+
 public interface RestaurantService {
 
     Restaurant create(Restaurant restaurant);

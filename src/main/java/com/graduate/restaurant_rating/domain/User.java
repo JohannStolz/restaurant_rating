@@ -12,12 +12,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
+
 @Entity
 @Table(name = "users")
 public class User extends AbstractBaseEntity {
+    @Column(nullable = false, unique = true)
     private String name;
     private int age;
     @Enumerated(EnumType.STRING)

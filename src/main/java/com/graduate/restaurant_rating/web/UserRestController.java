@@ -17,9 +17,6 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNew;
 
-/**
- * Created by Johann Stolz 04.09.2018
- */
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(value = UserRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)

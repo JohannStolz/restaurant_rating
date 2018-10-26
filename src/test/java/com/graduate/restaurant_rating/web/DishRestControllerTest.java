@@ -48,9 +48,9 @@ public class DishRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "ADMIN")
     public void testGetAll() throws Exception {
-        mockMvc.perform(post(REST_URL)
+        mockMvc.perform(get(REST_URL)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -59,8 +59,8 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testGetAllPost() throws Exception {
-        mockMvc.perform(get(REST_URL))
+    public void testGetAllWithVotes() throws Exception {
+        mockMvc.perform(get(REST_URL + "withvotes"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(DishData.getWithVotes()));
