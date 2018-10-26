@@ -5,12 +5,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-/**
- * Created by Johann Stolz 15.08.2018
- */
-public interface ResturantRepo extends PagingAndSortingRepository<Restaurant, Integer> {
 
-    Restaurant findById(int id);
+public interface RestaurantRepo extends PagingAndSortingRepository<Restaurant, Integer> {
 
     Restaurant save(Restaurant restaurant);
 

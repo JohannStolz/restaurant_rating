@@ -4,9 +4,7 @@ import com.graduate.restaurant_rating.domain.User;
 
 import java.util.List;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
+
 public interface UserService {
 
     User create(User user);
@@ -16,6 +14,8 @@ public interface UserService {
     void delete(int id);
 
     User get(int id);
+
+    User getByName(String name);
 
     List<User> getAll();
 

@@ -5,59 +5,38 @@ import com.graduate.restaurant_rating.HasId;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Created by Johann Stolz 06.09.2018
- */
+
 public class DishWithVotes implements HasId {
     protected Integer id;
-    private String description;
-    private LocalDate date;
-    private int restaurantId;
-    private double price;
     private long countOfVotes;
+    private LocalDate date;
 
     public DishWithVotes() {
     }
 
-    public DishWithVotes(Integer id, String description, LocalDate date, int restaurantId, double price, long countOfVotes) {
+    public DishWithVotes(Integer id, long countOfVotes) {
         this.id = id;
-        this.description = description;
-        this.date = date;
-        this.restaurantId = restaurantId;
-        this.price = price;
         this.countOfVotes = countOfVotes;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
+    public DishWithVotes(Integer dishId, LocalDate date, long countOfVotes) {
+        this.id = dishId;
+        this.countOfVotes = countOfVotes;
         this.date = date;
     }
 
-    public int getRestaurantId() {
-        return restaurantId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DishWithVotes that = (DishWithVotes) o;
+        return getCountOfVotes() == that.getCountOfVotes() &&
+                Objects.equals(getId(), that.getId());
     }
 
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCountOfVotes());
     }
 
     public long getCountOfVotes() {
@@ -68,32 +47,12 @@ public class DishWithVotes implements HasId {
         this.countOfVotes = countOfVotes;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DishWithVotes that = (DishWithVotes) o;
-        return getRestaurantId() == that.getRestaurantId() &&
-                Double.compare(that.getPrice(), getPrice()) == 0 &&
-                getCountOfVotes() == that.getCountOfVotes() &&
-                Objects.equals(getDescription(), that.getDescription()) &&
-                Objects.equals(getDate(), that.getDate());
+    public LocalDate getDate() {
+        return date;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getDescription(), getDate(), getRestaurantId(), getPrice(), getCountOfVotes());
-    }
-
-    @Override
-    public String toString() {
-        return "DishWithVotes{" +
-                "description='" + description + '\'' +
-                ", date=" + date +
-                ", restaurantId=" + restaurantId +
-                ", price=" + price +
-                ", countOfVotes=" + countOfVotes +
-                '}';
+    public void setDateTime(LocalDate date) {
+        this.date = date;
     }
 
     @Override

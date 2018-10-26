@@ -13,9 +13,6 @@ import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
 import static com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils.getDishListWithVotes;
 
-/**
- * Created by Johann Stolz 05.09.2018
- */
 public class DishData {
     public static final int CP_ID = SEQ_START + 6;
     public static final int BFG_ID = SEQ_START + 7;
@@ -44,7 +41,7 @@ public class DishData {
                 null
                 , "NewDish"
                 , LocalDate.now().minusDays(1)
-                , new Restaurant(MAXIM)
+                , MAXIM
                 , 20000.0);
     }
 
@@ -53,7 +50,7 @@ public class DishData {
                 CP_ID
                 , "UpdatedDish"
                 , LocalDate.now().minusDays(1)
-                , new Restaurant(MAXIM)
+                , MAXIM
                 , 20000.0);
     }
 
@@ -68,7 +65,7 @@ public class DishData {
 
     public static List<DishWithVotes> getWithVotesByToday() {
         return getWithVotes().stream()
-                .filter(a -> !a.getDescription().equals(CRUMB_POTATOSHKA.getDescription()))
+                .filter(a -> !a.getId().equals(CRUMB_POTATOSHKA.getId()))
                 .collect(Collectors.toList());
     }
 

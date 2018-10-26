@@ -15,6 +15,7 @@
  If it is after 11:00 then it is too late, vote can't be changed
  Each restaurant provides new menu each day.
 ***
+
 ### Restaurants: 
 
 		  
@@ -24,8 +25,8 @@
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'
       
 ##### get all restaurants with count of votes:
-    curl --request POST \
-      --http://localhost:8080/profile/restaurants \
+    curl --request get \
+      --http://localhost:8080/profile/restaurants/withvotes \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'      
       
 ##### add restaurant:
@@ -66,13 +67,13 @@
 ### Dishes:
 		  
 ##### get all dishes:
-    curl --request POST \
+    curl --request get \
       --url http://localhost:8080/profile/dishes \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'
 
 ##### get all dishes with count of votes:
     curl --request GET \
-      --url http://localhost:8080/profile/dishes \
+      --url http://localhost:8080/profile/dishes/withvotes \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'      
       
  ##### add dish:
@@ -195,44 +196,25 @@
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz' \
       --header 'Content-Type: application/json' \
       --data '
-      {"id": null, "user": {
-      "id": 100000, "name": "admin","age": 23,
-      "roles": ["ROLE_USER","ROLE_ADMIN"],
-      "sex": "SEX_WHATEVER", "email": "admin@rating.com",
-      "enabled": true,   "registeredDate": "2018-10-03"
-      },
-      "dish": {"id": 100006,"description": "CrumbPotatoshka",
-      "date": "2018-10-02",
-       "restaurant": {"id": 100003, "name": "CrumbPotato",
-      "address": "Bus station", "email": "CP@gmail.com"
-      },"price": 1000},
-      "restaurant": {"id": 100003,"name": "CrumbPotato",
-                          "address": "Bus station",
-                          "email": "CP@gmail.com"},
-                      "date": "2018-10-03T00:00:01"
-      }'
+      {"id":null
+      ,"userId":100000
+      ,"dishId":100006
+      ,"restaurantId":100003
+      ,"date":"2018-10-23T00:00:01"}'
 
 ##### update vote by id:
+    may generate an ReVoteException depending on the current time and "date": "2018-10-25T13:53:01" \
     curl --request PUT \
-      --url http://localhost:8080/profile/votes/100009 \
-      --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz' \
+      --url http://localhost:8080/profile/votes/100011 \
+      --header 'Authorization: Basic dXNlcjI6dXNlcjJwYXNz' \
       --header 'Content-Type: application/json' \
-      --data '{"id": 100009, "user": {
-                    "id": 100000, "name": "admin","age": 23,
-                    "roles": ["ROLE_USER","ROLE_ADMIN"],
-                    "sex": "SEX_WHATEVER", "email": "admin@rating.com",
-                    "enabled": true,   "registeredDate": "2018-10-03"
-                    },
-                    "dish": {"id": 100006,"description": "CrumbPotatoshka",
-                    "date": "2018-10-02",
-                     "restaurant": {"id": 100003, "name": "CrumbPotato",
-                    "address": "Bus station", "email": "CP@gmail.com"
-                    },"price": 1000},
-                    "restaurant": {"id": 100003,"name": "CrumbPotato",
-                                        "address": "Bus station",
-                                        "email": "CP@gmail.com"},
-                                    "date": "2014-10-03T00:00:01"
-                    }'
+      --data '{
+                  "id": 100011,
+                  "userId": 100002,
+                  "dishId": 100007,
+                  "restaurantId": 100004,
+                  "date": "2018-10-25T13:53:01"
+              }'
 
 ##### delete vote by id:
     curl --request DELETE \
@@ -246,4 +228,4 @@
 		  
 ***
 
-curl in [postman](https://documenter.getpostman.com/view/5493051/RWgm4MM5)
+curl in [postman]()https://documenter.getpostman.com/view/5493051/RWgm4MM5

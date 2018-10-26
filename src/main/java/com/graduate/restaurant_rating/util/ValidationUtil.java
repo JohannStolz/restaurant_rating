@@ -7,9 +7,6 @@ import com.graduate.restaurant_rating.util.exception.NotFoundException;
 
 import java.util.Objects;
 
-/**
- * Created by Johann Stolz 04.09.2018
- */
 public class ValidationUtil {
 
     public static <T> T checkNotFoundWithId(T object, int id) {

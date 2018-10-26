@@ -1,41 +1,36 @@
 package com.graduate.restaurant_rating.util;
 
-import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.to.DishWithVotes;
+import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-/**
- * Created by Johann Stolz 06.09.2018
- */
+
+@Component
 public class DishUtil {
 
-    public static List<DishWithVotes> getWithVotes(Collection<Dish> dishes, Collection<Vote> votes) {
-        Map<Dish, Long> dishMap = new HashMap<>();
+    public static List<DishWithVotes> getWithVotes(Map<Integer, LocalDate> map, Collection<Vote> votes) {
+        Map<Integer, Long> dishMap = new HashMap<>();
         votes.stream()
                 .collect(Collectors.groupingBy(
-                        Vote::getDish, Collectors.counting()))
+                        Vote::getDishId, Collectors.counting()))
                 .forEach(dishMap::put);
-        return dishes.stream()
+        List<Integer> dishesId = new ArrayList<>(map.keySet());
+        return dishesId.stream()
                 .filter(dishMap::containsKey)
-                .map(dish -> createWithVotes(dish, dishMap.get(dish)))
+                .map(dish -> createWithVotes(dish, map.get(dish), dishMap.get(dish)))
                 .collect(toList());
     }
 
-    public static DishWithVotes createWithVotes(Dish dish, long countOfVotes) {
+    public static DishWithVotes createWithVotes(Integer dishId, LocalDate date, long countOfVotes) {
         return new DishWithVotes(
-                dish.getId()
-                , dish.getDescription()
-                , dish.getDate()
-                , dish.getRestaurant().getId()
-                , dish.getPrice()
+                dishId
+                , date
                 , countOfVotes);
     }
 }

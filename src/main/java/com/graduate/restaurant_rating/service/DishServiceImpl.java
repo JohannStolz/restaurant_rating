@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
+
 @Transactional(readOnly = true)
 @Service
 public class DishServiceImpl implements DishService {
@@ -65,8 +65,11 @@ public class DishServiceImpl implements DishService {
     @Override
     public List<DishWithVotes> getAllWithVotes() {
         List<Dish> dishes = getAll();
+
+        Map<Integer, LocalDate> map = dishes.stream()
+                .collect(Collectors.toMap(Dish::getId, Dish::getDate));
         List<Vote> votes = voteRepo.findAll();
-        return DishUtil.getWithVotes(dishes, votes);
+        return DishUtil.getWithVotes(map, votes);
     }
 
     @Override

@@ -1,18 +1,16 @@
 package com.graduate.restaurant_rating.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractBaseEntity {
     private String name;
     private String address;
+    @Column(nullable = false, unique = true)
     private String email;
-    //private RestaurantMenu menu;
 
     public Restaurant() {
     }
@@ -47,14 +45,6 @@ public class Restaurant extends AbstractBaseEntity {
     public Integer getId() {
         return super.getId();
     }
-
-    /*public RestaurantMenu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(RestaurantMenu menu) {
-        this.menu = menu;
-    }*/
 
     public String getName() {
         return name;

@@ -1,6 +1,8 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Vote;
+import com.graduate.restaurant_rating.testdata.DishData;
+import com.graduate.restaurant_rating.testdata.RestaurantData;
 import com.graduate.restaurant_rating.testdata.VoteData;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.junit.Test;
@@ -42,7 +44,9 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void update() {
         Vote updated = getUpdated();
-        service.update(updated, USER1_VOTE_ID);
+        updated.setDishId(DishData.CP_ID);
+        updated.setRestaurantId(RestaurantData.CRUMB_POTATO_ID);
+        service.update(updated, USER1.getId());
         assertThat(service.get(USER1_VOTE_ID)).isEqualTo(updated);
     }
 
@@ -81,8 +85,11 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void updateNotFound() {
         int id = 0;
-        Vote updated = getCreated();
-        NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(updated, id));
+        Vote updated = getUpdated();
+        updated.setDishId(DishData.CP_ID);
+        updated.setRestaurantId(RestaurantData.CRUMB_POTATO_ID);
+        updated.setId(id);
+        NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(updated, ADMIN_ID));
         assertEquals(e.getMessage(), "Not found entity with id=" + id);
     }
 
@@ -103,11 +110,12 @@ public class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void getForDayByUser() {
+    public void getForReVotingPeriodByUser() {
+
         List<Vote> actual;
-        Vote voteAdmin = service.getForDayByUser(LocalDateTime.now(), ADMIN);
-        Vote voteUser1 = service.getForDayByUser(LocalDateTime.now(), USER1);
-        Vote voteUser2 = service.getForDayByUser(LocalDateTime.now(), USER2);
+        Vote voteAdmin = service.getForReVotingPeriodByUser(LocalDateTime.now(), ADMIN.getId());
+        Vote voteUser1 = service.getForReVotingPeriodByUser(LocalDateTime.now(), USER1.getId());
+        Vote voteUser2 = service.getForReVotingPeriodByUser(LocalDateTime.now(), USER2.getId());
         List<Vote> expected = VoteData.getForToday();
         actual = new ArrayList<>(Arrays.asList(voteAdmin, voteUser1, voteUser2));
         actual.removeIf(Objects::isNull);

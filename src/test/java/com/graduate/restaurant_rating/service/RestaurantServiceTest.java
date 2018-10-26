@@ -4,6 +4,7 @@ import com.graduate.restaurant_rating.domain.Restaurant;
 import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
 import static com.graduate.restaurant_rating.utils.TestUtil.assertMatch;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -62,8 +64,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test
     public void getNotFound() throws Exception {
         int id = 1;
-        assertThrows(NotFoundException.class, () ->
-                service.get(id));
+        assertThrows(NotFoundException.class, () -> service.get(id));
     }
 
     @Test
@@ -86,7 +87,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     public void getAllWithVotes() {
         List<RestaurantWithVotes> actual = service.getAllWithVotes();
         List<RestaurantWithVotes> expected = DishAndRestaurantsTestUtils.getRestaurantListWithVotes();
-        assertMatch(actual, expected);
+        assertThat(actual, CoreMatchers.is(expected));
     }
 
 }

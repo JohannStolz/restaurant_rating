@@ -2,7 +2,9 @@ package com.graduate.restaurant_rating.web;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
 import com.graduate.restaurant_rating.service.RestaurantService;
+import com.graduate.restaurant_rating.testdata.DishData;
 import com.graduate.restaurant_rating.testdata.RestaurantData;
+import com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils;
 import com.graduate.restaurant_rating.web.json.JsonUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,14 @@ public class RestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(RestaurantData.getAllRestaurants()));
+    }
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testGetAllWithVotes() throws Exception {
+        mockMvc.perform(get(REST_URL+ "/withvotes"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson(DishAndRestaurantsTestUtils.getRestaurantListWithVotes()));
     }
 
     @Test

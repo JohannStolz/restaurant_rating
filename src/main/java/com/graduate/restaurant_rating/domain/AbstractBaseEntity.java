@@ -6,9 +6,6 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
 @MappedSuperclass
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "new"})
 public class AbstractBaseEntity implements HasId {

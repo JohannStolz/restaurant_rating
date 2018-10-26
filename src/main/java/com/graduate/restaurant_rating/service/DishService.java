@@ -7,9 +7,7 @@ import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
+
 public interface DishService {
 
     Dish create(Dish dish);

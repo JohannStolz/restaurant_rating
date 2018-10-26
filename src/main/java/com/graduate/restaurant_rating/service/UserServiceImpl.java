@@ -2,6 +2,7 @@ package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.User;
 import com.graduate.restaurant_rating.repos.UserRepo;
+import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +12,7 @@ import java.util.List;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
 
-/**
- * Created by Johann Stolz 14.08.2018
- */
+
 @Transactional(readOnly = true)
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,7 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(int id) {
-        return checkNotFoundWithId(userRepo.findById(id), id);
+        return userRepo.findById(id).orElseThrow(() -> new NotFoundException("Not found entity with id=" + id));
+    }
+
+    @Override
+    public User getByName(String name) {
+        return userRepo.findByName(name);
     }
 
     @Override

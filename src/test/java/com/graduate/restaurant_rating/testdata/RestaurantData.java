@@ -7,9 +7,6 @@ import java.util.List;
 
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 
-/**
- * Created by Johann Stolz 05.09.2018
- */
 public class RestaurantData {
 
     public static final int CRUMB_POTATO_ID = SEQ_START + 3;

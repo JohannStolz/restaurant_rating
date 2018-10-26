@@ -12,9 +12,6 @@ import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START
 import static com.graduate.restaurant_rating.domain.Sex.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by Johann Stolz 05.09.2018
- */
 public class UserData {
     private static PasswordEncoder encoder = new BCryptPasswordEncoder();
     public static final int ADMIN_ID = SEQ_START;
