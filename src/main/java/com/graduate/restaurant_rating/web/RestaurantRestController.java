@@ -2,7 +2,6 @@ package com.graduate.restaurant_rating.web;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
 import com.graduate.restaurant_rating.service.RestaurantService;
-import com.graduate.restaurant_rating.to.RestaurantWithVotes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +47,6 @@ public class RestaurantRestController {
     public List<Restaurant> getAll() {
         logger.info("Returning all Restaurants");
         return service.getAll();
-    }
-
-    @GetMapping("/withvotes")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<RestaurantWithVotes> getAllWithVotes() {
-        logger.info("Returning all RestaurantsWithVotes");
-        return service.getAllWithVotes();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

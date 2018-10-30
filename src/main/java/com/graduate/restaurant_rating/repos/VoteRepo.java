@@ -6,9 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Created by Johann Stolz 15.08.2018
- */
 public interface VoteRepo extends PagingAndSortingRepository<Vote, Integer> {
 
     Vote save(Vote vote);
@@ -20,4 +17,6 @@ public interface VoteRepo extends PagingAndSortingRepository<Vote, Integer> {
     List<Vote> findAllByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
 
     Vote findAllByDateBetweenAndUserId(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer userId);
+
+    List<Vote> findAllByDateBetweenAndDishId(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer dishId);
 }

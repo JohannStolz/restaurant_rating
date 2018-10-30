@@ -21,4 +21,8 @@ public interface VoteService {
     List<Vote> getForDay(LocalDateTime localDate);
 
     Vote getForReVotingPeriodByUser(LocalDateTime localDate, int user_id);
+
+    List<Vote> findAllByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+
+    List<Vote> findAllByDateBetweenAndDishId(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer dishId);
 }

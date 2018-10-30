@@ -1,7 +1,6 @@
 package com.graduate.restaurant_rating.web;
 
 import com.graduate.restaurant_rating.domain.Dish;
-import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.service.DishService;
 import com.graduate.restaurant_rating.service.VoteService;
 import com.graduate.restaurant_rating.to.DishWithVotes;
@@ -18,11 +17,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.graduate.restaurant_rating.util.DishUtil.getWithVotes;
 import static com.graduate.restaurant_rating.util.Util.orElse;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNew;
 
@@ -63,13 +61,6 @@ public class DishRestController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/withvotes")
-    public List<DishWithVotes> getAllWithVotes() {
-        logger.info("getAllWithVotes");
-        return service.getAllWithVotes();
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void update(@RequestBody Dish dish, @PathVariable("id") int id) {
@@ -93,14 +84,25 @@ public class DishRestController {
     public List<DishWithVotes> getBetween(
             @RequestParam(value = "startDate", required = false) LocalDate startDate,
             @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        logger.info("getBetween dates({} - {})", startDate, endDate);
-        List<Dish> dishesDateFiltered = service.getAllByDate(
+        startDate = startDate == null ? DateTimeUtil.MIN_DATE : startDate;
+        endDate = endDate == null ? DateTimeUtil.MAX_DATE : endDate;
+        startDate = startDate.isBefore(DateTimeUtil.MIN_DATE) ? DateTimeUtil.MIN_DATE : startDate;
+        List<Dish> dishes = service.getAllByDate(
                 orElse(startDate, DateTimeUtil.MIN_DATE), orElse(endDate, DateTimeUtil.MAX_DATE));
-        List<Vote> votes = voteService.getAll();
-        Map<Integer, LocalDate> map = dishesDateFiltered.stream()
-                .collect(Collectors.toMap(Dish::getId, Dish::getDate));
-        return getWithVotes(map, votes);
+        LocalDate finalStartDate = startDate;
+        LocalDate finalEndDate = endDate;
+        logger.info("getBetween dates({} - {})", finalStartDate, finalEndDate);
+        return dishes.stream()
+                .map(d -> createWithVotes(service.get(d.getId()), getCountOfVotesForDishByDate(finalStartDate, finalEndDate, d.getId())))
+                .sorted(Comparator.comparing(DishWithVotes::getCountOfVotes).reversed())
+                .collect(Collectors.toList());
     }
 
+    private DishWithVotes createWithVotes(Dish dish, long countOfVotes) {
+        return new DishWithVotes(dish, countOfVotes);
+    }
+
+    private long getCountOfVotesForDishByDate(LocalDate startDate, LocalDate endDate, int dishId) {
+        return voteService.findAllByDateBetweenAndDishId(startDate.atStartOfDay(), endDate.atTime(23, 59, 59), dishId).size();
+    }
 }
-   

@@ -12,8 +12,8 @@ public class DateTimeUtil {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
     // DataBase doesn't support LocalDate.MIN/MAX
-    public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
-    public static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
+    public static final LocalDate MIN_DATE = /*LocalDate.of(1, 1, 1)*/ LocalDate.now().minusDays(7);
+    public static final LocalDate MAX_DATE = LocalDate.now();
 
     private DateTimeUtil() {
     }

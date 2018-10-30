@@ -1,42 +1,31 @@
 package com.graduate.restaurant_rating.to;
 
-import com.graduate.restaurant_rating.HasId;
+import com.graduate.restaurant_rating.domain.Dish;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 
-public class DishWithVotes implements HasId {
-    protected Integer id;
+public class DishWithVotes {
+    private Dish dish;
     private long countOfVotes;
     private LocalDate date;
 
     public DishWithVotes() {
     }
 
-    public DishWithVotes(Integer id, long countOfVotes) {
-        this.id = id;
+    public DishWithVotes(Dish dish, long countOfVotes) {
+        this.dish = dish;
         this.countOfVotes = countOfVotes;
+        this.date = dish.getDate();
     }
 
-    public DishWithVotes(Integer dishId, LocalDate date, long countOfVotes) {
-        this.id = dishId;
-        this.countOfVotes = countOfVotes;
-        this.date = date;
+    public Dish getDish() {
+        return dish;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DishWithVotes that = (DishWithVotes) o;
-        return getCountOfVotes() == that.getCountOfVotes() &&
-                Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getCountOfVotes());
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
     public long getCountOfVotes() {
@@ -51,22 +40,22 @@ public class DishWithVotes implements HasId {
         return date;
     }
 
-    public void setDateTime(LocalDate date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
     @Override
-    public Integer getId() {
-        return id;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DishWithVotes that = (DishWithVotes) o;
+        return getCountOfVotes() == that.getCountOfVotes() &&
+                Objects.equals(getDish(), that.getDish()) &&
+                Objects.equals(getDate(), that.getDate());
     }
 
     @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return id == null;
+    public int hashCode() {
+        return Objects.hash(getDish(), getCountOfVotes(), getDate());
     }
 }

@@ -59,15 +59,6 @@ public class DishRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testGetAllWithVotes() throws Exception {
-        mockMvc.perform(get(REST_URL + "withvotes"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(contentJson(DishData.getWithVotes()));
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
     public void testUpdate() throws Exception {
         Dish updated = getUpdated();
         mockMvc.perform(put(REST_URL + CRUMB_POTATOSHKA.getId())
@@ -82,15 +73,12 @@ public class DishRestControllerTest extends AbstractControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testGetBetween() throws Exception {
-        List<DishWithVotes> expected = DishData.getWithVotesByToday();
+        List<DishWithVotes> expected = DishData.getWithVotesForToday();
         mockMvc.perform(get(REST_URL + "filter")
                 .param("startDate", String.valueOf(LocalDate.now()))
                 .param("endDate", String.valueOf(LocalDate.now()))
-        )
-                .andExpect(status().isOk())
-
+        ).andExpect(status().isOk())
                 .andExpect(contentJson(expected));
-
     }
 
     @Test
@@ -100,7 +88,7 @@ public class DishRestControllerTest extends AbstractControllerTest {
         )
                 .andExpect(status().isOk())
 
-                .andExpect(contentJson(DishData.getWithVotes()));
+                .andExpect(contentJson(DishData.getAllWithVotes()));
     }
 
     @Test

@@ -76,6 +76,16 @@ public class VoteServiceImpl implements VoteService {
         return voteRepo.findAllByDateBetweenAndUserId(list.get(0), list.get(1), user_id);
     }
 
+    @Override
+    public List<Vote> findAllByDateBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return voteRepo.findAllByDateBetween(startDateTime, endDateTime);
+    }
+
+    @Override
+    public List<Vote> findAllByDateBetweenAndDishId(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer dishId) {
+        return voteRepo.findAllByDateBetweenAndDishId(startDateTime, endDateTime, dishId);
+    }
+
     private boolean checkUserIdAndReVotePeriod(Vote vote) {
         get(vote.getId());
         int userId = vote.getUserId();

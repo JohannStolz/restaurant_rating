@@ -160,5 +160,5 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(jsonPath("$.errorCode").value(400))
                 .andExpect(jsonPath("$.message").value("The request could not be understood by the server: The time for re-voting is up to 11 hours"));
-       }
+    }
 }

@@ -2,6 +2,7 @@ package com.graduate.restaurant_rating.testdata;
 
 import com.graduate.restaurant_rating.domain.Dish;
 import com.graduate.restaurant_rating.domain.Restaurant;
+import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.to.DishWithVotes;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.domain.AbstractBaseEntity.SEQ_START;
 import static com.graduate.restaurant_rating.testdata.RestaurantData.*;
-import static com.graduate.restaurant_rating.utils.DishAndRestaurantsTestUtils.getDishListWithVotes;
+
 
 public class DishData {
     public static final int CP_ID = SEQ_START + 6;
@@ -59,17 +60,26 @@ public class DishData {
         return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC);
     }
 
-    public static List<DishWithVotes> getWithVotes() {
-        return getDishListWithVotes();
+    public static List<DishWithVotes> getWithVotesForToday() {
+        List<Vote> allVotes = VoteData.getAllVotes();
+        return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC).stream()
+                .filter(dish -> dish.getDate().isEqual(LocalDate.now()))
+                .map(dish -> createWithVotes(dish, allVotes.stream()
+                        .filter(vote -> vote.getDate().toLocalDate().isEqual(LocalDate.now()))
+                        .filter(vote -> vote.getDishId() == dish.getId()).count())).collect(Collectors.toList());
     }
 
-    public static List<DishWithVotes> getWithVotesByToday() {
-        return getWithVotes().stream()
-                .filter(a -> !a.getId().equals(CRUMB_POTATOSHKA.getId()))
-                .collect(Collectors.toList());
+    private static DishWithVotes createWithVotes(Dish dish, long countOfVotes) {
+        return new DishWithVotes(dish, countOfVotes);
+    }
+
+    public static List<DishWithVotes> getAllWithVotes() {
+        List<Vote> allVotes = VoteData.getAllVotes();
+        return Arrays.asList(CRUMB_POTATOSHKA, BELYASH_FOR_GENTS, LE_BIG_MAC).stream()
+                .map(dish -> createWithVotes(dish, allVotes.stream()
+                        .filter(vote -> vote.getDishId() == dish.getId()).count())).collect(Collectors.toList());
     }
 
 }
-
-
+           
                             

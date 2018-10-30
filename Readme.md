@@ -24,9 +24,9 @@
       --http://localhost:8080/profile/restaurants \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'
       
-##### get all restaurants with count of votes:
+##### get all restaurants with the number of votes for the current day (winner of voting):
     curl --request get \
-      --http://localhost:8080/profile/restaurants/withvotes \
+      --http://localhost:8080/profile/winner \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'      
       
 ##### add restaurant:
@@ -71,9 +71,9 @@
       --url http://localhost:8080/profile/dishes \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'
 
-##### get all dishes with count of votes:
+##### get all dishes with count of votes for the past week:
     curl --request GET \
-      --url http://localhost:8080/profile/dishes/withvotes \
+      --url http://localhost:8080/profile/dishes/filter?startDate=&endDate= \
       --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNz'      
       
  ##### add dish:

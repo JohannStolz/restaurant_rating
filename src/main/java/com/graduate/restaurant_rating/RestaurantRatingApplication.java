@@ -13,7 +13,6 @@ public class RestaurantRatingApplication {
 
         ApplicationContext applicationContext =
                 SpringApplication.run(RestaurantRatingApplication.class, args);
-        // Arrays.stream(applicationContext.getBeanDefinitionNames()).forEach(System.out::println);
 
     }
 }

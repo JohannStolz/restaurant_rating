@@ -1,47 +1,35 @@
 package com.graduate.restaurant_rating.to;
 
-import com.graduate.restaurant_rating.HasId;
+import com.graduate.restaurant_rating.domain.Restaurant;
 
 import java.util.Objects;
 
-public class RestaurantWithVotes implements HasId {
-    protected Integer id;
-    private String name;
-    private String address;
+public class RestaurantWithVotes {
+    private Restaurant restaurant;
     private long countOfVotes;
 
     public RestaurantWithVotes() {
     }
 
-    public RestaurantWithVotes(Integer id, /*String name*/ long countOfVotes) {
-        this.id = id;
-        this.name = name;
+    public RestaurantWithVotes(Restaurant restaurant, long countOfVotes) {
+        this.restaurant = restaurant;
         this.countOfVotes = countOfVotes;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public long getCountOfVotes() {
         return countOfVotes;
     }
 
-
-    public String getAddress() {
-        return address;
-    }
-
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return id == null;
+    public void setCountOfVotes(long countOfVotes) {
+        this.countOfVotes = countOfVotes;
     }
 
     @Override
@@ -50,12 +38,11 @@ public class RestaurantWithVotes implements HasId {
         if (o == null || getClass() != o.getClass()) return false;
         RestaurantWithVotes that = (RestaurantWithVotes) o;
         return getCountOfVotes() == that.getCountOfVotes() &&
-                Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getAddress(), that.getAddress());
+                Objects.equals(getRestaurant(), that.getRestaurant());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAddress(), getCountOfVotes());
+        return Objects.hash(getRestaurant(), getCountOfVotes());
     }
 }

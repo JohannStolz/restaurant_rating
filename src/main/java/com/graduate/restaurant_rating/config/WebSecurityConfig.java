@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(
                         (request, response, authentication) -> response
                                 .setStatus(HttpStatus.NO_CONTENT.value()))
-                .successForwardUrl("/profile/dishes")
+                .successForwardUrl("/profile/winner")
                 .failureHandler(
                         (authenticationFailureHandler))
                 .and()

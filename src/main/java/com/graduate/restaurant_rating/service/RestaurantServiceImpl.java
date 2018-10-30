@@ -1,18 +1,14 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Restaurant;
-import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.repos.RestaurantRepo;
 import com.graduate.restaurant_rating.repos.VoteRepo;
-import com.graduate.restaurant_rating.to.RestaurantWithVotes;
-import com.graduate.restaurant_rating.util.RestaurantUtil;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
@@ -59,11 +55,4 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantRepo.findAll();
     }
 
-    @Override
-    public List<RestaurantWithVotes> getAllWithVotes() {
-        List<Restaurant> restaurants = getAll();
-        List<Integer> restaurantsId = restaurants.stream().map(Restaurant::getId).collect(Collectors.toList());
-        List<Vote> votes = voteRepo.findAll();
-        return RestaurantUtil.getWithVotes(restaurantsId, votes);
-    }
 }

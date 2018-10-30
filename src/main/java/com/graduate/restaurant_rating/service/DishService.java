@@ -1,7 +1,6 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Dish;
-import com.graduate.restaurant_rating.to.DishWithVotes;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -19,8 +18,6 @@ public interface DishService {
     Dish get(int id) throws NotFoundException;
 
     List<Dish> getAll();
-
-    List<DishWithVotes> getAllWithVotes();
 
     List<Dish> getAllByDate(LocalDate startDate, LocalDate endDate);
 

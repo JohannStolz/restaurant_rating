@@ -1,11 +1,7 @@
 package com.graduate.restaurant_rating.service;
 
 import com.graduate.restaurant_rating.domain.Dish;
-import com.graduate.restaurant_rating.domain.Vote;
 import com.graduate.restaurant_rating.repos.DishRepo;
-import com.graduate.restaurant_rating.repos.VoteRepo;
-import com.graduate.restaurant_rating.to.DishWithVotes;
-import com.graduate.restaurant_rating.util.DishUtil;
 import com.graduate.restaurant_rating.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkForMatchId;
 import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWithId;
@@ -24,12 +18,10 @@ import static com.graduate.restaurant_rating.util.ValidationUtil.checkNotFoundWi
 @Service
 public class DishServiceImpl implements DishService {
     private final DishRepo dishRepo;
-    private final VoteRepo voteRepo;
 
     @Autowired
-    public DishServiceImpl(DishRepo dishRepo, VoteRepo voteRepo) {
+    public DishServiceImpl(DishRepo dishRepo) {
         this.dishRepo = dishRepo;
-        this.voteRepo = voteRepo;
     }
 
     @Transactional
@@ -60,16 +52,6 @@ public class DishServiceImpl implements DishService {
     @Override
     public List<Dish> getAll() {
         return dishRepo.findAll();
-    }
-
-    @Override
-    public List<DishWithVotes> getAllWithVotes() {
-        List<Dish> dishes = getAll();
-
-        Map<Integer, LocalDate> map = dishes.stream()
-                .collect(Collectors.toMap(Dish::getId, Dish::getDate));
-        List<Vote> votes = voteRepo.findAll();
-        return DishUtil.getWithVotes(map, votes);
     }
 
     @Override
